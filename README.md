@@ -1,1 +1,2 @@
 # warbid
+# Manual document
