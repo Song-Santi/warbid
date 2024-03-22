@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -36,6 +37,7 @@ public class User {
 
   @NotBlank
   @Size(max = 120)
+  @JsonIgnore
   private String password;
 
   @Size(min = 9, max = 12)
@@ -50,6 +52,7 @@ public class User {
   @Column(name = "updated_time")
   private LocalDateTime updatedTime;
 
+  @JsonIgnore
   private boolean deleted;
 
   @ManyToMany(fetch = FetchType.LAZY)

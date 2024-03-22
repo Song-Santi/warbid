@@ -1,5 +1,6 @@
 package com.auctiononline.warbidrestful.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.auctiononline.warbidrestful.models.User;
@@ -10,6 +11,17 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
+  @Query("SELECT u FROM User u WHERE u.deleted = false")
+  List<User> findAllActiveUsers();
+
+  @Query("SELECT DISTINCT u FROM User u " +
+          "WHERE u.deleted = false AND " +
+          "(LOWER(u.username) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+          "LOWER(u.email) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+          "LOWER(u.phone) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR " +
+          "LOWER(u.address) LIKE LOWER(CONCAT('%', :searchTerm, '%')))")
+  List<User> searchUsersByKeyword(@Param("searchTerm") String searchTerm);
   Optional<User> findByUsername(String username);
 
   Boolean existsByUsername(String username);

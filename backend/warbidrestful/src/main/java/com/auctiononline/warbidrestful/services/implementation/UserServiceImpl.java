@@ -5,6 +5,7 @@ import com.auctiononline.warbidrestful.models.ERole;
 import com.auctiononline.warbidrestful.models.Role;
 import com.auctiononline.warbidrestful.models.User;
 import com.auctiononline.warbidrestful.payload.request.UserRequest;
+import com.auctiononline.warbidrestful.payload.response.GetAllUserResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 import com.auctiononline.warbidrestful.repository.RoleRepository;
 import com.auctiononline.warbidrestful.repository.UserRepository;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -28,6 +30,48 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     PasswordEncoder encoder;
+
+    @Override
+    public GetAllUserResponse getAllUser(){
+        try {
+            List<User> activeUsers = userRepository.findAllActiveUsers();
+             return new GetAllUserResponse(
+                    200,
+                    "OK",
+                    "Get all user list",
+                    activeUsers
+            );
+        } catch (AppException ex) {
+            return new GetAllUserResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    "Internal Server Error",
+                    "An unexpected error occurred. Please try again later or contact support for assistance.",
+                    null
+            );
+
+        }
+    }
+
+    public GetAllUserResponse getAllUserBySearch(String searchTerm){
+        try {
+            List<User> activeUsers = userRepository.searchUsersByKeyword(searchTerm);
+            return new GetAllUserResponse(
+                    200,
+                    "OK",
+                    "Get all user list",
+                    activeUsers
+            );
+
+        } catch (AppException ex) {
+            return new GetAllUserResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    "Internal Server Error",
+                    "An unexpected error occurred. Please try again later or contact support for assistance.",
+                    null
+            );
+
+        }
+    }
 
     @Override
     public MessageResponse add(UserRequest userRequest){
@@ -46,8 +90,46 @@ public class UserServiceImpl implements UserService {
 
         user.setRoles(roles);
         user.setDeleted(false);
-        userRepository.save(user);
-        return new MessageResponse(200,HttpStatus.OK,"User registered successfully!");
+        try{
+            userRepository.save(user);
+            return new MessageResponse(200,HttpStatus.OK,"User registered successfully!");
+        }catch (AppException ex){
+            return new MessageResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "An unexpected error occurred. Please try again later or contact support for assistance."
+            );
+        }
+
+    }
+
+    public MessageResponse update(UserRequest userRequest){
+        if (userRepository.existsByUsernameAndDifferentId(userRequest.getUsername(),userRequest.getId() )) {
+            return new MessageResponse(400, HttpStatus.BAD_REQUEST,"Error: Username is already taken!");
+        }
+
+        if (userRepository.existsByEmailAndDifferentId(userRequest.getEmail(), userRequest.getId())) {
+            return new MessageResponse(400, HttpStatus.BAD_REQUEST,"Error: Email is already in use!");
+        }
+
+        // Update user's account
+        User user = createUserFromRequest(userRequest);
+
+        Set<Role> roles = mapStringRolesToRoles(userRequest.getRole());
+
+        user.setRoles(roles);
+        user.setId(userRequest.getId());
+        user.setDeleted(false);
+        try{
+            userRepository.save(user);
+            return new MessageResponse(200,HttpStatus.OK,"User updated successfully!");
+        }catch (AppException ex){
+            return new MessageResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "An unexpected error occurred. Please try again later or contact support for assistance."
+            );
+        }
     }
     @Override
     public MessageResponse delete(Long id) {
@@ -57,9 +139,16 @@ public class UserServiceImpl implements UserService {
         }
         User user = optionalUser.get();
         user.setDeleted(true);
-        userRepository.save(user);
-
-        return new MessageResponse(200, HttpStatus.OK, "User deleted successfully");
+        try{
+            userRepository.save(user);
+            return new MessageResponse(200, HttpStatus.OK, "User deleted successfully");
+        }catch (AppException ex){
+            return new MessageResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "An unexpected error occurred. Please try again later or contact support for assistance."
+            );
+        }
     }
 
     @Override
@@ -70,20 +159,29 @@ public class UserServiceImpl implements UserService {
         }
         User user = optionalUser.get();
         user.setDeleted(false);
-        userRepository.save(user);
 
-        return new MessageResponse(200, HttpStatus.OK, "User recovery successfully");
+        try{
+            userRepository.save(user);
+            return new MessageResponse(200, HttpStatus.OK, "User recovery successfully");
+        }catch (AppException ex){
+            return new MessageResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "An unexpected error occurred. Please try again later or contact support for assistance."
+            );
+        }
     }
 
     private User createUserFromRequest(UserRequest userRequest) {
         String encodedPassword = encoder.encode(userRequest.getPassword());
-        return new User(
-                userRequest.getUsername(),
-                userRequest.getEmail(),
-                encodedPassword,
-                userRequest.getPhone(),
-                userRequest.getAddress()
-        );
+            return new User(
+                    userRequest.getUsername(),
+                    userRequest.getEmail(),
+                    encodedPassword,
+                    userRequest.getPhone(),
+                    userRequest.getAddress()
+            );
+
     }
 
     private Set<Role> mapStringRolesToRoles(Set<String> strRoles) {

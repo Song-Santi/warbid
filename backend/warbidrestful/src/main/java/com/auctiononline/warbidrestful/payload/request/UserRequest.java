@@ -11,7 +11,7 @@ import java.util.Set;
 @Data
 @Builder
 public class UserRequest {
-    private Integer id;
+    private Long id;
 
     @NotBlank
     @Size(min = 3, max = 20)
