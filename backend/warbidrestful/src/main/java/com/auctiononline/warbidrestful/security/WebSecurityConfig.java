@@ -2,7 +2,6 @@ package com.auctiononline.warbidrestful.security;
 
 import com.auctiononline.warbidrestful.security.jwt.AuthEntryPointJwt;
 import com.auctiononline.warbidrestful.security.jwt.AuthTokenFilter;
-import com.auctiononline.warbidrestful.security.services.UserDetailsServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -60,8 +59,9 @@ public class WebSecurityConfig {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> 
           auth.requestMatchers("/api/auth/**").permitAll()
-              .requestMatchers("/api/test/**").permitAll()
-              .anyRequest().authenticated()
+                  .requestMatchers("/api/test/**").permitAll()
+                  .requestMatchers("/api/user/**").permitAll()
+                  .anyRequest().authenticated()
         );
     
     http.authenticationProvider(authenticationProvider());

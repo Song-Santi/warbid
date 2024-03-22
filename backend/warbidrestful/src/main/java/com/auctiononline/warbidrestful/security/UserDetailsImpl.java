@@ -1,4 +1,4 @@
-package com.auctiononline.warbidrestful.security.services;
+package com.auctiononline.warbidrestful.security;
 
 import com.auctiononline.warbidrestful.models.User;
 import lombok.AllArgsConstructor;

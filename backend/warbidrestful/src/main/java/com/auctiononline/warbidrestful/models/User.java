@@ -1,5 +1,6 @@
 package com.auctiononline.warbidrestful.models;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,13 +38,25 @@ public class User {
   @Size(max = 120)
   private String password;
 
+  @Size(min = 9, max = 12)
+  private String phone;
+
+  @Size(max = 255)
+  private String address;
+
+  @Column(name = "created_time")
+  private LocalDateTime createdTime;
+
+  @Column(name = "updated_time")
+  private LocalDateTime updatedTime;
+
+  private boolean deleted;
+
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "user_roles", 
              joinColumns = @JoinColumn(name = "user_id"),
              inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
-
-
 
   public User(String username, String email, String password) {
     this.username = username;
@@ -51,5 +64,12 @@ public class User {
     this.password = password;
   }
 
+  public User(String username, String email, String password, String phone, String address){
+    this.username = username;
+    this.email = email;
+    this.password = password;
+    this.phone = phone;
+    this.address = address;
+  }
 
 }

@@ -3,7 +3,7 @@ package com.auctiononline.warbidrestful.security.jwt;
 import java.security.Key;
 import java.util.Date;
 
-import com.auctiononline.warbidrestful.security.services.UserDetailsImpl;
+import com.auctiononline.warbidrestful.security.UserDetailsImpl;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 

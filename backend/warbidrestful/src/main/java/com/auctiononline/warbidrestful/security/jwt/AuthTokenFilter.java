@@ -2,7 +2,7 @@ package com.auctiononline.warbidrestful.security.jwt;
 
 import java.io.IOException;
 
-import com.auctiononline.warbidrestful.security.services.UserDetailsServiceImpl;
+import com.auctiononline.warbidrestful.security.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,8 +1,9 @@
-package com.auctiononline.warbidrestful.security.services;
+package com.auctiononline.warbidrestful.security;
 
 import com.auctiononline.warbidrestful.models.User;
 import com.auctiononline.warbidrestful.repository.UserRepository;
 
+import com.auctiononline.warbidrestful.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

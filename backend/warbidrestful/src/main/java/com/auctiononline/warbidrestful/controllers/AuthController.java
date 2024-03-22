@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import jakarta.validation.Valid;
 
 import com.auctiononline.warbidrestful.exception.AppException;
 import com.auctiononline.warbidrestful.models.ERole;
@@ -16,9 +17,7 @@ import com.auctiononline.warbidrestful.payload.response.UserInfoResponse;
 import com.auctiononline.warbidrestful.repository.RoleRepository;
 import com.auctiononline.warbidrestful.repository.UserRepository;
 import com.auctiononline.warbidrestful.security.jwt.JwtUtils;
-
-import com.auctiononline.warbidrestful.security.services.UserDetailsImpl;
-import jakarta.validation.Valid;
+import com.auctiononline.warbidrestful.security.UserDetailsImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -124,6 +123,7 @@ public class AuthController {
     }
 
     user.setRoles(roles);
+    user.setDeleted(false);
     userRepository.save(user);
 
     return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(200,HttpStatus.OK,"User registered successfully!"));
