@@ -30,6 +30,7 @@ public class UserDetailsImpl implements UserDetails {
 
   private final String phone;
   private final String address;
+  private final Boolean deleted;
 
   private final Collection<? extends GrantedAuthority> authorities;
 
@@ -45,6 +46,7 @@ public class UserDetailsImpl implements UserDetails {
             user.getPassword(),
             user.getPhone(),
             user.getAddress(),
+            user.isDeleted(),
             authorities);
   }
 

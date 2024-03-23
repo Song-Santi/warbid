@@ -68,6 +68,11 @@ public class AuthController {
 
     UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
+    if(userDetails.getDeleted()){
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+              .body(new MessageResponse(401, HttpStatus.UNAUTHORIZED, "Bad credentials"));
+    }
+
     ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
     List<String> roles = userDetails.getAuthorities().stream()
