@@ -28,6 +28,9 @@ public class UserDetailsImpl implements UserDetails {
   // @JsonIgnore không cần nữa vì Lombok sẽ tự động loại bỏ field này khi cần thiết
   private final String password;
 
+  private final String phone;
+  private final String address;
+
   private final Collection<? extends GrantedAuthority> authorities;
 
   public static UserDetailsImpl build(User user) {
@@ -40,6 +43,8 @@ public class UserDetailsImpl implements UserDetails {
             user.getUsername(),
             user.getEmail(),
             user.getPassword(),
+            user.getPhone(),
+            user.getAddress(),
             authorities);
   }
 

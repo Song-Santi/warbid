@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.auctiononline.warbidrestful.payload.response.UserInfoResponse;
 import jakarta.validation.Valid;
 
 import com.auctiononline.warbidrestful.exception.AppException;
@@ -13,7 +15,7 @@ import com.auctiononline.warbidrestful.models.User;
 import com.auctiononline.warbidrestful.payload.request.LoginRequest;
 import com.auctiononline.warbidrestful.payload.request.SignupRequest;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
-import com.auctiononline.warbidrestful.payload.response.UserInfoResponse;
+import com.auctiononline.warbidrestful.payload.response.UserInfo;
 import com.auctiononline.warbidrestful.repository.RoleRepository;
 import com.auctiononline.warbidrestful.repository.UserRepository;
 import com.auctiononline.warbidrestful.security.jwt.JwtUtils;
@@ -72,11 +74,15 @@ public class AuthController {
         .map(item -> item.getAuthority())
         .collect(Collectors.toList());
 
+    UserInfo userInfo = new UserInfo(userDetails.getId(),
+            userDetails.getUsername(),
+            userDetails.getEmail(),
+            userDetails.getPhone(),
+            userDetails.getAddress(),
+            roles);
+
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-        .body(new UserInfoResponse(userDetails.getId(),
-                                   userDetails.getUsername(),
-                                   userDetails.getEmail(),
-                                   roles));
+        .body(new UserInfoResponse(200,"OK","Get user information successfully!", userInfo));
   }
 
   @PostMapping("/signup")
