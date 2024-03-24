@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
 
     @Autowired
-    PasswordEncoder encoder;
+    private PasswordEncoder encoder;
 
     @Override
     public GetAllUserResponse getAllUser(){
@@ -131,6 +131,31 @@ public class UserServiceImpl implements UserService {
             );
         }
     }
+
+    @Override
+    public MessageResponse updateProfile(UserRequest userRequest, Set<Role> roles){
+
+        if (isUsernameOrEmailAlreadyTaken(userRequest.getUsername(), userRequest.getEmail(), userRequest.getId())) {
+            return new MessageResponse(400, HttpStatus.BAD_REQUEST, "Username or Email is already taken!");
+        }
+
+        User user = createUserFromRequest(userRequest);
+        user.setId(userRequest.getId());
+        user.setRoles(roles);
+        user.setDeleted(false);
+
+        try{
+            userRepository.save(user);
+            return new MessageResponse(200,HttpStatus.OK,"User updated successfully!");
+        }catch (AppException ex){
+            return new MessageResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "An unexpected error occurred. Please try again later or contact support for assistance."
+            );
+        }
+
+    }
     @Override
     public MessageResponse delete(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
@@ -170,6 +195,10 @@ public class UserServiceImpl implements UserService {
                     "An unexpected error occurred. Please try again later or contact support for assistance."
             );
         }
+    }
+
+    private boolean isUsernameOrEmailAlreadyTaken(String username, String email, Long userId) {
+        return userRepository.existsByUsernameAndDifferentId(username, userId) || userRepository.existsByEmailAndDifferentId(email, userId);
     }
 
     private User createUserFromRequest(UserRequest userRequest) {

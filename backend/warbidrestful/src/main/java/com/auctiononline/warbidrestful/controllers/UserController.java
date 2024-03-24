@@ -1,16 +1,23 @@
 package com.auctiononline.warbidrestful.controllers;
 
-
+import com.auctiononline.warbidrestful.models.Role;
+import com.auctiononline.warbidrestful.models.User;
 import com.auctiononline.warbidrestful.payload.request.UserRequest;
 import com.auctiononline.warbidrestful.payload.response.GetAllUserResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
+import com.auctiononline.warbidrestful.repository.UserRepository;
+import com.auctiononline.warbidrestful.security.jwt.JwtUtils;
 import com.auctiononline.warbidrestful.services.ilterface.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+import java.util.Set;
 
 //@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -20,14 +27,20 @@ public class UserController {
    @Autowired
    private UserService userService;
 
-    @GetMapping("/getAll")
+   @Autowired
+   private JwtUtils jwtUtils;
+
+   @Autowired
+   private UserRepository userRepository;
+
+    @GetMapping("/get-all")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllUser() {
         GetAllUserResponse getAllUserResponse = userService.getAllUser();
         return ResponseEntity.status(HttpStatus.OK).body(getAllUserResponse);
     }
 
-    @PostMapping("/getUserBySearch/{searchString}")
+    @PostMapping("/get-user-by-search/{searchString}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addUser( @PathVariable String searchString) {
         GetAllUserResponse getAllUserResponse = userService.getAllUserBySearch(searchString);
@@ -46,6 +59,23 @@ public class UserController {
     public ResponseEntity<?> updateUser(@Valid @RequestBody UserRequest userRequest) {
         MessageResponse messageResponse = userService.update(userRequest);
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
+    }
+
+    @PostMapping("/update-profile")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
+    public ResponseEntity<?> updateProfile(HttpServletRequest request, @Valid @RequestBody UserRequest userRequest) {
+        String token = jwtUtils.getJwtFromCookies(request);
+        String username = jwtUtils.getUserNameFromJwtToken(token);
+        Optional<User>  apiRequest = userRepository.findByUsername(username);
+        if (apiRequest.isPresent()) {
+            Set<Role> roleSet = apiRequest.get().getRoles();
+
+            MessageResponse messageResponse = userService.updateProfile(userRequest, roleSet);
+            return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
+
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(404, HttpStatus.NOT_FOUND, "User not found!"));
+        }
     }
 
     @PostMapping("/delete/{id}")
