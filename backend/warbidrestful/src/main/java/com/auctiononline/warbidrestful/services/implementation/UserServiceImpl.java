@@ -3,18 +3,27 @@ package com.auctiononline.warbidrestful.services.implementation;
 import com.auctiononline.warbidrestful.exception.AppException;
 import com.auctiononline.warbidrestful.models.ERole;
 import com.auctiononline.warbidrestful.models.Role;
+import com.auctiononline.warbidrestful.models.Token;
 import com.auctiononline.warbidrestful.models.User;
+import com.auctiononline.warbidrestful.payload.request.EmailForgotRequest;
+import com.auctiononline.warbidrestful.payload.request.PasswordRequest;
+import com.auctiononline.warbidrestful.payload.request.TokenRequest;
 import com.auctiononline.warbidrestful.payload.request.UserRequest;
 import com.auctiononline.warbidrestful.payload.response.GetAllUserResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 import com.auctiononline.warbidrestful.repository.RoleRepository;
+import com.auctiononline.warbidrestful.repository.TokenRepository;
 import com.auctiononline.warbidrestful.repository.UserRepository;
 import com.auctiononline.warbidrestful.services.ilterface.UserService;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +38,13 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
 
     @Autowired
+    private TokenRepository tokenRepository;
+
+    @Autowired
     private PasswordEncoder encoder;
+
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @Override
     public GetAllUserResponse getAllUser(){
@@ -188,6 +203,134 @@ public class UserServiceImpl implements UserService {
         try{
             userRepository.save(user);
             return new MessageResponse(200, HttpStatus.OK, "User recovery successfully");
+        }catch (AppException ex){
+            return new MessageResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "An unexpected error occurred. Please try again later or contact support for assistance."
+            );
+        }
+    }
+
+    @Override
+    public MessageResponse emailSendToken(EmailForgotRequest emailForgotRequest){
+        String email = emailForgotRequest.getEmail();
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if(!optionalUser.isPresent()){
+            return new MessageResponse(404, HttpStatus.NOT_FOUND, "Email isn't already taken!");
+        }
+
+        User user = optionalUser.get();
+        String genToken = RandomStringUtils.randomNumeric(5);
+        LocalDateTime expiry = LocalDateTime.now().plusMinutes(1);
+        Token token = new Token(genToken, expiry, user);
+        token.setDeleted(false);
+
+        try{
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(email);
+            message.setSubject("The token is used to change your password");
+            message.setText(genToken);
+            javaMailSender.send(message);
+
+            tokenRepository.save(token);
+            return new MessageResponse(200, HttpStatus.OK, "The token code has been sent to your email!");
+        }catch (AppException ex){
+            return new MessageResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "An unexpected error occurred. Please try again later or contact support for assistance."
+            );
+        }
+    }
+
+    @Override
+    public MessageResponse checkToken(TokenRequest tokenRequest){
+        Optional<User> getUserByEmail = userRepository.findByEmail(tokenRequest.getEmail());
+
+        if(!getUserByEmail.isPresent()){
+            return new MessageResponse(404, HttpStatus.NOT_FOUND, "Email isn't already taken!");
+        }
+
+        User user = getUserByEmail.get();
+
+        List<Token> listTokenByUserIdAndDeleted = tokenRepository.findByUserIdAndDeleted(user.getId(), false);
+        if(listTokenByUserIdAndDeleted.isEmpty()){
+            return new MessageResponse(404, HttpStatus.NOT_FOUND, "Email not found!");
+        }else{
+            Token tokenAvaliable = listTokenByUserIdAndDeleted.get(listTokenByUserIdAndDeleted.size() -1);
+
+            int comparsion = tokenAvaliable.getExpiry().compareTo(LocalDateTime.now());
+            // check expiry
+            if (comparsion < 0) {
+                Token tokenUpdateDeleted = new Token(tokenAvaliable.getId(),
+                        tokenAvaliable.getToken(),
+                        tokenAvaliable.getExpiry(),
+                        tokenAvaliable.getFailedCount() + 1,
+                        tokenAvaliable.getUser(),
+                        tokenAvaliable.getCreatedTime(),
+                        LocalDateTime.now(),
+                        true
+                );
+                tokenRepository.save(tokenUpdateDeleted);
+                return new MessageResponse(403, HttpStatus.FORBIDDEN,"Token has expired. Please try again later!");
+            }
+            //check failed count
+            if(tokenAvaliable.getFailedCount() > 5){
+                Token tokenUpdateDeleted = new Token(tokenAvaliable.getId(),
+                        tokenAvaliable.getToken(),
+                        tokenAvaliable.getExpiry(),
+                        tokenAvaliable.getFailedCount() + 1,
+                        tokenAvaliable.getUser(),
+                        tokenAvaliable.getCreatedTime(),
+                        LocalDateTime.now(),
+                        true
+                );
+                tokenRepository.save(tokenUpdateDeleted);
+                return new MessageResponse(429, HttpStatus.TOO_MANY_REQUESTS,"Too many failed attempts. Please try again later!");
+            }
+            // check token
+            if(tokenRequest.getToken() != tokenAvaliable.getToken()){
+                Token tokenUpdateFaliledCount = new Token(tokenAvaliable.getId(),
+                            tokenAvaliable.getToken(),
+                            tokenAvaliable.getExpiry(),
+                            tokenAvaliable.getFailedCount() + 1,
+                            tokenAvaliable.getUser(),
+                            tokenAvaliable.getCreatedTime(),
+                            LocalDateTime.now(),
+                            tokenAvaliable.getDeleted()
+                        );
+                    tokenRepository.save(tokenUpdateFaliledCount);
+                    return new MessageResponse(401, HttpStatus.UNAUTHORIZED,"Invalid token. Please try again!");
+            }
+
+            return new MessageResponse(200, HttpStatus.OK,"Request token successful!");
+        }
+    }
+
+    @Override
+    public MessageResponse changePassword(PasswordRequest passwordRequest){
+        Optional<User> user = userRepository.findByUsername(passwordRequest.getUsername());
+        if(!user.isPresent()){
+            return new MessageResponse(404, HttpStatus.NOT_FOUND,"User not found!");
+        }
+
+        User userDb = user.get();
+
+        String encodedPassword = encoder.encode(userDb.getPassword());
+        User updateUser = new User(
+                userDb.getUsername(),
+                userDb.getEmail(),
+                encodedPassword,
+                userDb.getPhone(),
+                userDb.getAddress()
+                );
+        updateUser.setId(userDb.getId());
+        updateUser.setRoles(userDb.getRoles());
+        updateUser.setDeleted(false);
+        try{
+            userRepository.save(updateUser);
+            return new MessageResponse(200,HttpStatus.OK,"User updated successfully!");
         }catch (AppException ex){
             return new MessageResponse(
                     HttpStatus.INTERNAL_SERVER_ERROR.value(),

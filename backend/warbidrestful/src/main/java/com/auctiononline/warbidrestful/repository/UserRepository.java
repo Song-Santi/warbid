@@ -24,6 +24,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
   List<User> searchUsersByKeyword(@Param("searchTerm") String searchTerm);
   Optional<User> findByUsername(String username);
 
+  Optional<User> findByEmail(String email);
+
   @Query("SELECT CASE WHEN COUNT(u) > 0 THEN TRUE ELSE FALSE END FROM User u WHERE u.username = :username AND u.deleted = FALSE")
   Boolean existsActiveByUsername(String username);
 
