@@ -1,11 +1,10 @@
 package com.auctiononline.warbidrestful.controllers;
 
-import com.auctiononline.warbidrestful.payload.request.EmailForgotRequest;
-import com.auctiononline.warbidrestful.payload.request.EmailRequest;
-import com.auctiononline.warbidrestful.payload.request.PasswordRequest;
-import com.auctiononline.warbidrestful.payload.request.TokenRequest;
+import com.auctiononline.warbidrestful.payload.request.*;
+import com.auctiononline.warbidrestful.payload.response.GetAllResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 import com.auctiononline.warbidrestful.services.ilterface.EmailService;
+import com.auctiononline.warbidrestful.services.ilterface.PostService;
 import com.auctiononline.warbidrestful.services.ilterface.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -32,6 +29,9 @@ public class TestController {
 
   @Autowired
   private EmailService emailService;
+
+  @Autowired
+  private PostService postService;
 
   @GetMapping("/all")
   public String allAccess() {
@@ -61,38 +61,9 @@ public class TestController {
     emailService.sendEmail(emailRequest.getTo(), emailRequest.getSubject(), emailRequest.getText());
   }
 
-  @PostMapping("/send-token")
-  public ResponseEntity<?> allAccess(@RequestBody EmailForgotRequest emailForgotRequest) {
-    MessageResponse messageResponse = userService.emailSendToken(emailForgotRequest);
-    return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
+  @GetMapping("/get-all-label")
+  public ResponseEntity<?> getAllLabel() {
+    GetAllResponse postLabelResponse = postService.getAllPostLabel();
+    return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
   }
-
-  @PostMapping("/check-token")
-  public ResponseEntity<?> checkToken(@RequestBody @Valid TokenRequest tokenRequest, BindingResult bindingResult) {
-    if (bindingResult.hasErrors()) {
-      Map<String, String> errors = bindingResult.getFieldErrors().stream()
-              .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
-
-      MessageResponse errorResponse = new MessageResponse(400, HttpStatus.BAD_REQUEST, "Invalid", errors);
-      return ResponseEntity.badRequest().body(errorResponse);
-    }
-
-    MessageResponse messageResponse = userService.checkToken(tokenRequest);
-    return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
-  }
-
-  @PostMapping("/change-password")
-  public ResponseEntity<?> changePassword(@RequestBody @Valid PasswordRequest passwordRequest, BindingResult bindingResult) {
-    if (bindingResult.hasErrors()) {
-      Map<String, String> errors = bindingResult.getFieldErrors().stream()
-              .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
-
-      MessageResponse errorResponse = new MessageResponse(400, HttpStatus.BAD_REQUEST, "Invalid", errors);
-      return ResponseEntity.badRequest().body(errorResponse);
-    }
-
-    MessageResponse messageResponse = userService.changePassword(passwordRequest);
-    return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
-  }
-
 }

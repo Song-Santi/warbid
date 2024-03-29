@@ -12,9 +12,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAllUserResponse {
+public class GetAllResponse {
     private int code;
     private String status;
     private String message;
-    private List<User> data;
+    private List<?> data;
 }

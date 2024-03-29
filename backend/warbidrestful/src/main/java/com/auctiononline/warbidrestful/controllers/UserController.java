@@ -6,7 +6,7 @@ import com.auctiononline.warbidrestful.payload.request.EmailForgotRequest;
 import com.auctiononline.warbidrestful.payload.request.PasswordRequest;
 import com.auctiononline.warbidrestful.payload.request.TokenRequest;
 import com.auctiononline.warbidrestful.payload.request.UserRequest;
-import com.auctiononline.warbidrestful.payload.response.GetAllUserResponse;
+import com.auctiononline.warbidrestful.payload.response.GetAllResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 import com.auctiononline.warbidrestful.repository.UserRepository;
 import com.auctiononline.warbidrestful.security.jwt.JwtUtils;
@@ -43,14 +43,14 @@ public class UserController {
     @GetMapping("/get-all")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllUser() {
-        GetAllUserResponse getAllUserResponse = userService.getAllUser();
+        GetAllResponse getAllUserResponse = userService.getAllUser();
         return ResponseEntity.status(HttpStatus.OK).body(getAllUserResponse);
     }
 
     @PostMapping("/get-user-by-search/{searchString}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addUser( @PathVariable String searchString) {
-        GetAllUserResponse getAllUserResponse = userService.getAllUserBySearch(searchString);
+        GetAllResponse getAllUserResponse = userService.getAllUserBySearch(searchString);
         return ResponseEntity.status(HttpStatus.OK).body(getAllUserResponse);
     }
 
@@ -99,14 +99,14 @@ public class UserController {
         }
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         MessageResponse messageResponse = userService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
     }
 
-    @PostMapping("/restore/{id}")
+    @DeleteMapping("/restore/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> restoreUser(@PathVariable Long id) {
         MessageResponse messageResponse = userService.restore(id);

@@ -5,15 +5,15 @@ import com.auctiononline.warbidrestful.payload.request.EmailForgotRequest;
 import com.auctiononline.warbidrestful.payload.request.PasswordRequest;
 import com.auctiononline.warbidrestful.payload.request.TokenRequest;
 import com.auctiononline.warbidrestful.payload.request.UserRequest;
-import com.auctiononline.warbidrestful.payload.response.GetAllUserResponse;
+import com.auctiononline.warbidrestful.payload.response.GetAllResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 
 import java.util.Set;
 
 public interface UserService {
-    GetAllUserResponse getAllUser();
+    GetAllResponse getAllUser();
 
-    GetAllUserResponse getAllUserBySearch(String searchTerm);
+    GetAllResponse getAllUserBySearch(String searchTerm);
 
     MessageResponse update(UserRequest userRequest);
 

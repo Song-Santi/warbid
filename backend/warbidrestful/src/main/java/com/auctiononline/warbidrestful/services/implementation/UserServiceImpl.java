@@ -9,7 +9,7 @@ import com.auctiononline.warbidrestful.payload.request.EmailForgotRequest;
 import com.auctiononline.warbidrestful.payload.request.PasswordRequest;
 import com.auctiononline.warbidrestful.payload.request.TokenRequest;
 import com.auctiononline.warbidrestful.payload.request.UserRequest;
-import com.auctiononline.warbidrestful.payload.response.GetAllUserResponse;
+import com.auctiononline.warbidrestful.payload.response.GetAllResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 import com.auctiononline.warbidrestful.repository.RoleRepository;
 import com.auctiononline.warbidrestful.repository.TokenRepository;
@@ -47,17 +47,17 @@ public class UserServiceImpl implements UserService {
     private JavaMailSender javaMailSender;
 
     @Override
-    public GetAllUserResponse getAllUser(){
+    public GetAllResponse getAllUser(){
         try {
             List<User> activeUsers = userRepository.findAllActiveUsers();
-             return new GetAllUserResponse(
+             return new GetAllResponse(
                     200,
                     "OK",
                     "Get all user list",
                     activeUsers
             );
         } catch (AppException ex) {
-            return new GetAllUserResponse(
+            return new GetAllResponse(
                     HttpStatus.INTERNAL_SERVER_ERROR.value(),
                     "Internal Server Error",
                     "An unexpected error occurred. Please try again later or contact support for assistance.",
@@ -67,10 +67,10 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public GetAllUserResponse getAllUserBySearch(String searchTerm){
+    public GetAllResponse getAllUserBySearch(String searchTerm){
         try {
             List<User> activeUsers = userRepository.searchUsersByKeyword(searchTerm);
-            return new GetAllUserResponse(
+            return new GetAllResponse(
                     200,
                     "OK",
                     "Get all user list",
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
             );
 
         } catch (AppException ex) {
-            return new GetAllUserResponse(
+            return new GetAllResponse(
                     HttpStatus.INTERNAL_SERVER_ERROR.value(),
                     "Internal Server Error",
                     "An unexpected error occurred. Please try again later or contact support for assistance.",
