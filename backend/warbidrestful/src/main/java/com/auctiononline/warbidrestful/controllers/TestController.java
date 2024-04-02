@@ -5,6 +5,7 @@ import com.auctiononline.warbidrestful.payload.response.GetAllResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 import com.auctiononline.warbidrestful.services.ilterface.EmailService;
 import com.auctiononline.warbidrestful.services.ilterface.PostService;
+import com.auctiononline.warbidrestful.services.ilterface.ProductService;
 import com.auctiononline.warbidrestful.services.ilterface.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class TestController {
 
   @Autowired
   private PostService postService;
+
+  @Autowired
+  private ProductService productService;
 
   @GetMapping("/all")
   public String allAccess() {
@@ -64,6 +68,12 @@ public class TestController {
   @GetMapping("/get-all-label")
   public ResponseEntity<?> getAllLabel() {
     GetAllResponse postLabelResponse = postService.getAllPostLabel();
+    return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
+  }
+
+  @GetMapping("/get-all-product")
+  public ResponseEntity<?> getAllProduct() {
+    GetAllResponse postLabelResponse = productService.getAll();
     return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
   }
 }
