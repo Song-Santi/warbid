@@ -110,7 +110,8 @@ public class PostServiceImpl implements PostService {
             }
 
             Post post = posts.get(0);
-            postRepository.delete(post);
+            post.setDeleted(true);
+            postRepository.save(post);
             return new MessageResponse(200, HttpStatus.OK, "Delete post successful!");
 
         }catch(AppException ex){
