@@ -171,7 +171,10 @@ public class ProductServiceImpl implements ProductService {
                 return new MessageResponse(404, HttpStatus.NOT_FOUND, "Id not found");
             }
 
-            productRepository.delete(products.get(0));
+            Product product = products.get(0);
+            product.setDeleted(true);
+
+            productRepository.save(product);
             return new MessageResponse(200, HttpStatus.OK,"Product deleted successful");
 
         } catch (AppException ex) {

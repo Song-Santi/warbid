@@ -64,7 +64,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addProduct(@RequestBody @Valid ProductRequest productRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = UserController.invalidResponse(bindingResult);
         if (invalidResponse != null) {
@@ -75,7 +75,7 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateProduct(@RequestBody @Valid ProductRequest productRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = UserController.invalidResponse(bindingResult);
         if (invalidResponse != null) {
@@ -86,7 +86,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{id}")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         MessageResponse messageResponse = productService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
