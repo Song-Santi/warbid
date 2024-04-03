@@ -25,7 +25,7 @@ public class Auction {
     @Column(name = "product_id")
     private Long productId;
 
-    @Column(name = "user_id")
+    @Column(name = "bidder_id")
     private Long userId;
 
     @Column(name = "bid_amount")
@@ -34,12 +34,18 @@ public class Auction {
     @Column(name = "bid_time")
     private LocalDateTime bidTime;
 
-    @Column(name = "bid_status")
+    @Column(name = "bidder_status")
     private Boolean bidStatus;
 
-    public Auction(Long productId, Long userId, Boolean bidStatus){
+    public Auction(Long productId, Long userId){
         this.productId = productId;
         this.userId = userId;
-        this.bidStatus = bidStatus;
+    }
+
+    public Auction(Long productId, Long userId, BigDecimal bidAmount, LocalDateTime bidTime){
+        this.productId = productId;
+        this.userId = userId;
+        this.bidAmount = bidAmount;
+        this.bidTime = bidTime;
     }
 }

@@ -1,6 +1,7 @@
 package com.auctiononline.warbidrestful.services.implementation;
 
 import com.auctiononline.warbidrestful.exception.AppException;
+import com.auctiononline.warbidrestful.models.Auction;
 import com.auctiononline.warbidrestful.models.Category;
 import com.auctiononline.warbidrestful.models.Post;
 import com.auctiononline.warbidrestful.models.Product;
@@ -10,6 +11,7 @@ import com.auctiononline.warbidrestful.payload.request.PostRequest;
 import com.auctiononline.warbidrestful.payload.request.ProductRequest;
 import com.auctiononline.warbidrestful.payload.response.GetAllResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
+import com.auctiononline.warbidrestful.repository.AuctionRepository;
 import com.auctiononline.warbidrestful.repository.CategoryRepository;
 import com.auctiononline.warbidrestful.repository.ProductRepository;
 import com.auctiononline.warbidrestful.services.ilterface.ProductService;
@@ -30,6 +32,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private AuctionRepository auctionRepository;
 
     @Override
     public GetAllResponse getAll(){
@@ -143,7 +148,17 @@ public class ProductServiceImpl implements ProductService {
         try {
             Product product = createProductFromRequest(productRequest);
             product.setDeleted(false);
+
+            String resultCompareTime = compareTimeValid(product);
+            if(resultCompareTime != null){
+                return new MessageResponse(400, HttpStatus.BAD_REQUEST,resultCompareTime);
+            }
             productRepository.save(product);
+
+            Auction auction = new Auction(product.getId(),null,product.getStartPrice(),product.getAuctionTime());
+            auction.setBidStatus(false);
+            auctionRepository.save(auction);
+
             return new MessageResponse(200, HttpStatus.OK, "Add product successful!");
         } catch (AppException ex) {
             return new MessageResponse(500, ex.getHttpStatus(), ex.getMessage(), null);
@@ -156,6 +171,12 @@ public class ProductServiceImpl implements ProductService {
             Product product = createProductFromRequest(productRequest);
             product.setId(productRequest.getId());
             product.setDeleted(false);
+
+            String resultCompareTime = compareTimeValid(product);
+            if(resultCompareTime != null){
+                return new MessageResponse(400, HttpStatus.BAD_REQUEST, resultCompareTime);
+            }
+
             productRepository.save(product);
             return new MessageResponse(200, HttpStatus.OK, "Update product successful!");
         } catch (AppException ex) {
@@ -226,6 +247,23 @@ public class ProductServiceImpl implements ProductService {
                 auctionTime,
                 auctionEndTime
         );
+    }
+
+    private String compareTimeValid(Product product){
+        if(product.getAuctionTime() == null || product.getAuctionEndTime() == null){
+            return "Auction time or auction end time don't null";
+        }
+
+        int compareCurrentTime = product.getAuctionTime().compareTo(LocalDateTime.now());
+        if(compareCurrentTime < 0){
+            return "Auction Time invalid!";
+        }
+
+        int compareEndTime = product.getAuctionTime().compareTo(product.getAuctionEndTime());
+        if(compareEndTime > 0){ //auctionEndTime invalid
+            return "Auction End Time invalid!";
+        }
+        return null;
     }
 
 }

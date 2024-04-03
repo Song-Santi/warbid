@@ -23,6 +23,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
           "LOWER(u.address) LIKE LOWER(CONCAT('%', :searchTerm, '%')))")
   List<User> searchUsersByKeyword(@Param("searchTerm") String searchTerm);
 
+  @Query("SELECT u FROM User u WHERE u.deleted = FALSE AND u.id = :id")
+  List<User> findByIdActive(Long id);
+
   @Query("SELECT u FROM User u WHERE u.deleted = FALSE AND u.username = :username")
   Optional<User> findByUsername(String username);
 
@@ -35,7 +38,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   @Query("SELECT COUNT(u) > 0 FROM User u WHERE u.username = :username AND u.deleted = FALSE")
   Boolean existsByUsername(String username);
-
 
   @Query("SELECT COUNT(u) > 0 FROM User u WHERE u.email = :email AND u.deleted = FALSE")
   Boolean existsByEmail(String email);
