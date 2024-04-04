@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -15,4 +16,5 @@ import java.math.BigDecimal;
 public class AuctionTheBestDTO {
     private BigDecimal bidAmount;
     private String username;
+    private LocalDateTime bidTime;
 }

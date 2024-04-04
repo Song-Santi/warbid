@@ -5,6 +5,7 @@ import com.auctiononline.warbidrestful.models.Auction;
 import com.auctiononline.warbidrestful.models.Category;
 import com.auctiononline.warbidrestful.models.Post;
 import com.auctiononline.warbidrestful.models.Product;
+import com.auctiononline.warbidrestful.payload.dto.AuctionTheBestDTO;
 import com.auctiononline.warbidrestful.payload.dto.PostLabelDTO;
 import com.auctiononline.warbidrestful.payload.dto.ProductDTO;
 import com.auctiononline.warbidrestful.payload.request.PostRequest;
@@ -23,6 +24,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -228,6 +230,19 @@ public class ProductServiceImpl implements ProductService {
             productDTO.setStartPrice(product.getStartPrice());
             productDTO.setAuctionTime(product.getAuctionTime());
             productDTO.setAuctionEndTime(product.getAuctionEndTime());
+
+
+
+            List<Auction> auctions = auctionRepository.findAllByProductIdOrderByBidAmountDesc(product.getId());
+            if (auctions.isEmpty()){
+                productDTO.setBestAmount(null);
+                productDTO.setBestAmountTime(null);
+                productsDTO.add(productDTO);
+                continue;
+            }
+            Auction auction = auctions.get(0);
+            productDTO.setBestAmount(auction.getBidAmount());
+            productDTO.setBestAmountTime(auction.getBidTime());
 
             productsDTO.add(productDTO);
         }

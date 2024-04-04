@@ -123,7 +123,7 @@ public class AuctionServiceImpl implements AuctionService {
             Long userId = auction.getUserId();
 
             if(userId == null){
-                AuctionTheBestDTO auctionTheBestDTO = new AuctionTheBestDTO(auction.getBidAmount(), "Starting price");
+                AuctionTheBestDTO auctionTheBestDTO = new AuctionTheBestDTO(auction.getBidAmount(), "Starting price", null);
                 List<AuctionTheBestDTO> auctionTheBestDTOs = new ArrayList<>();
                 auctionTheBestDTOs.add(auctionTheBestDTO);
 
@@ -135,7 +135,7 @@ public class AuctionServiceImpl implements AuctionService {
                 return new GetAllResponse(404, HttpStatus.NOT_FOUND.toString(),"Not user found by user id", null);
             }
             User user = users.get(0);
-            AuctionTheBestDTO auctionTheBestDTO = new AuctionTheBestDTO(auction.getBidAmount(), user.getUsername());
+            AuctionTheBestDTO auctionTheBestDTO = new AuctionTheBestDTO(auction.getBidAmount(), user.getUsername(), auction.getBidTime());
             List<AuctionTheBestDTO> auctionTheBestDTOs = new ArrayList<>();
             auctionTheBestDTOs.add(auctionTheBestDTO);
 

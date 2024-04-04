@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -21,4 +22,7 @@ public class ProductDTO {
     private BigDecimal startPrice;
     private LocalDateTime auctionTime;
     private LocalDateTime auctionEndTime;
+    private BigDecimal bestAmount;
+    private LocalDateTime bestAmountTime;
+
 }
