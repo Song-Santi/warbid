@@ -231,8 +231,6 @@ public class ProductServiceImpl implements ProductService {
             productDTO.setAuctionTime(product.getAuctionTime());
             productDTO.setAuctionEndTime(product.getAuctionEndTime());
 
-
-
             List<Auction> auctions = auctionRepository.findAllByProductIdOrderByBidAmountDesc(product.getId());
             if (auctions.isEmpty()){
                 productDTO.setBestAmount(null);

@@ -29,6 +29,9 @@ public class Feedback {
     @Column(name = "user_id")
     private  Long userId;
 
+    @Column(name = "contact_name")
+    private String contactName;
+
     @Column(name = "title")
     private String title;
 
