@@ -21,15 +21,17 @@ public class PostController {
     private PostService postService;
 
     @GetMapping("/get-all-label")
-    public ResponseEntity<?> getAllLabel() {
-        GetAllResponse postLabelResponse = postService.getAllPostLabel();
+    public ResponseEntity<?> getAllLabel(@RequestParam(defaultValue = "1") int page,
+                                         @RequestParam(defaultValue = "10") int pageSize) {
+        GetAllResponse postLabelResponse = postService.getAllPostLabel(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
     @GetMapping("/get-all")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> getAll() {
-        GetAllResponse postLabelResponse = postService.getAllPost();
+    public ResponseEntity<?> getAll(@RequestParam(defaultValue = "1") int page,
+                                    @RequestParam(defaultValue = "10") int pageSize) {
+        GetAllResponse postLabelResponse = postService.getAllPost(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 

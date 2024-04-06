@@ -11,9 +11,9 @@ import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 import java.util.Set;
 
 public interface UserService {
-    GetAllResponse getAllUser();
+    GetAllResponse getAllUser(int page, int pageSize);
 
-    GetAllResponse getAllUserBySearch(String searchTerm);
+    GetAllResponse getAllUserBySearch(int page, int pageSize, String searchTerm);
 
     MessageResponse update(UserRequest userRequest);
 

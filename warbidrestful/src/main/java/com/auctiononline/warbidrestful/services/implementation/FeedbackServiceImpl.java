@@ -1,13 +1,11 @@
 package com.auctiononline.warbidrestful.services.implementation;
 
 import com.auctiononline.warbidrestful.exception.AppException;
-import com.auctiononline.warbidrestful.models.Feedback;
-import com.auctiononline.warbidrestful.models.Post;
-import com.auctiononline.warbidrestful.models.Product;
-import com.auctiononline.warbidrestful.models.User;
+import com.auctiononline.warbidrestful.models.*;
 import com.auctiononline.warbidrestful.payload.dto.FeedbackContactDTO;
 import com.auctiononline.warbidrestful.payload.dto.FeedbackPostDTO;
 import com.auctiononline.warbidrestful.payload.dto.FeedbackProductDTO;
+import com.auctiononline.warbidrestful.payload.dto.Paging;
 import com.auctiononline.warbidrestful.payload.response.GetAllResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 import com.auctiononline.warbidrestful.repository.FeedbackRepository;
@@ -37,7 +35,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     private UserRepository userRepository;
 
     @Override
-    public GetAllResponse getAllFeedbackProduct(){
+    public GetAllResponse getAllFeedbackProduct(int page, int pageSize){
         try{
             List<Feedback> feedbacks = feedbackRepository.getAllFeedbackProduct();
             if(feedbacks.isEmpty()){
@@ -69,14 +67,24 @@ public class FeedbackServiceImpl implements FeedbackService {
                 feedbackProductDTO.setEmail(user.getEmail());
                 feedbackProductDTOs.add(feedbackProductDTO);
             }
-            return new GetAllResponse(200,HttpStatus.OK.toString(),"Get all comments for the product!",feedbackProductDTOs);
+
+            int totalItems = feedbackProductDTOs.size();
+            int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+            int startIndex = (page - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            List<FeedbackProductDTO> feedbackProductDTOsOnPage = new ArrayList<>(feedbackProductDTOs.subList(startIndex, endIndex));
+
+            Paging paging = new Paging(page, totalPages, pageSize, totalItems);
+
+            return new GetAllResponse(200,HttpStatus.OK.toString(),"Get all comments for the product!",paging, feedbackProductDTOsOnPage);
         }catch (AppException ex){
             return new GetAllResponse(500, ex.getHttpStatus().toString(), ex.getMessage(), null);
         }
     }
 
     @Override
-    public GetAllResponse getAllFeedbackPost(){
+    public GetAllResponse getAllFeedbackPost(int page, int pageSize){
         try{
             List<Feedback> feedbacks = feedbackRepository.getAllFeedbackPost();
             if(feedbacks.isEmpty()){
@@ -108,13 +116,23 @@ public class FeedbackServiceImpl implements FeedbackService {
                 feedbackPostDTO.setEmail(user.getEmail());
                 feedbackPostDTOs.add(feedbackPostDTO);
             }
-            return new GetAllResponse(200,HttpStatus.OK.toString(),"Get all comments for the post!",feedbackPostDTOs);
+
+            int totalItems = feedbackPostDTOs.size();
+            int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+            int startIndex = (page - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            List<FeedbackPostDTO> feedbackPostDTOsOnPage = new ArrayList<>(feedbackPostDTOs.subList(startIndex, endIndex));
+
+            Paging paging = new Paging(page, totalPages, pageSize, totalItems);
+
+            return new GetAllResponse(200,HttpStatus.OK.toString(),"Get all comments for the post!",paging, feedbackPostDTOsOnPage);
         }catch (AppException ex){
             return new GetAllResponse(500, ex.getHttpStatus().toString(), ex.getMessage(), null);
         }
     }
     @Override
-    public GetAllResponse getAllFeedbackContact(){
+    public GetAllResponse getAllFeedbackContact(int page, int pageSize){
         try{
             List<Feedback> feedbacks = feedbackRepository.getAllFeedbackContact();
             if(feedbacks.isEmpty()){
@@ -132,7 +150,17 @@ public class FeedbackServiceImpl implements FeedbackService {
 
                 feedbackContactDTOs.add(feedbackContactDTO);
             }
-            return new GetAllResponse(200,HttpStatus.OK.toString(),"Get all contact successful!",feedbackContactDTOs);
+
+            int totalItems = feedbackContactDTOs.size();
+            int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+            int startIndex = (page - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            List<FeedbackContactDTO> feedbackContactDTOsOnPage = new ArrayList<>(feedbackContactDTOs.subList(startIndex, endIndex));
+
+            Paging paging = new Paging(page, totalPages, pageSize, totalItems);
+
+            return new GetAllResponse(200,HttpStatus.OK.toString(),"Get all contact successful!",paging, feedbackContactDTOsOnPage);
         }catch (AppException ex){
             return new GetAllResponse(500, ex.getHttpStatus().toString(), ex.getMessage(), null);
         }

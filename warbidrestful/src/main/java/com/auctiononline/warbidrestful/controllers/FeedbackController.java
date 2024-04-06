@@ -16,20 +16,23 @@ public class FeedbackController {
     private FeedbackService feedbackService;
 
     @GetMapping("/get-all-product")
-    public ResponseEntity<?> getAllProduct() {
-        GetAllResponse postLabelResponse = feedbackService.getAllFeedbackProduct();
+    public ResponseEntity<?> getAllProduct(@RequestParam(defaultValue = "1") int page,
+                                           @RequestParam(defaultValue = "10") int pageSize) {
+        GetAllResponse postLabelResponse = feedbackService.getAllFeedbackProduct(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
     @GetMapping("/get-all-post")
-    public ResponseEntity<?> getAllPost() {
-        GetAllResponse postLabelResponse = feedbackService.getAllFeedbackPost();
+    public ResponseEntity<?> getAllPost(@RequestParam(defaultValue = "1") int page,
+                                        @RequestParam(defaultValue = "10") int pageSize) {
+        GetAllResponse postLabelResponse = feedbackService.getAllFeedbackPost(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
     @GetMapping("/get-all-contact")
-    public ResponseEntity<?> getAllContact() {
-        GetAllResponse postLabelResponse = feedbackService.getAllFeedbackContact();
+    public ResponseEntity<?> getAllContact(@RequestParam(defaultValue = "1") int page,
+                                           @RequestParam(defaultValue = "10") int pageSize) {
+        GetAllResponse postLabelResponse = feedbackService.getAllFeedbackContact(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 

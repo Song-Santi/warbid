@@ -22,8 +22,9 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<?> getAllProduct() {
-        GetAllResponse postLabelResponse = productService.getAll();
+    public ResponseEntity<?> getAllProduct(@RequestParam(defaultValue = "1") int page,
+                                           @RequestParam(defaultValue = "10") int pageSize) {
+        GetAllResponse postLabelResponse = productService.getAll(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
@@ -34,8 +35,10 @@ public class ProductController {
     }
 
     @GetMapping("/get-by-search/{search}")
-    public ResponseEntity<?> getProductByKeyword(@PathVariable String search) {
-        GetAllResponse postLabelResponse = productService.getBySearch(search);
+    public ResponseEntity<?> getProductByKeyword(@RequestParam(defaultValue = "1") int page,
+                                                 @RequestParam(defaultValue = "10") int pageSize,
+                                                 @PathVariable String search) {
+        GetAllResponse postLabelResponse = productService.getBySearch(page, pageSize, search);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
@@ -46,20 +49,23 @@ public class ProductController {
     }
 
     @GetMapping("/get-by-yet-auction")
-    public ResponseEntity<?> getProductByYetAuction() {
-        GetAllResponse postLabelResponse = productService.getByYetAuction();
+    public ResponseEntity<?> getProductByYetAuction(@RequestParam(defaultValue = "1") int page,
+                                                    @RequestParam(defaultValue = "10") int pageSize) {
+        GetAllResponse postLabelResponse = productService.getByYetAuction(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
     @GetMapping("/get-by-auctionning")
-    public ResponseEntity<?> getProductByAuctionning() {
-        GetAllResponse postLabelResponse = productService.getByAuctioning();
+    public ResponseEntity<?> getProductByAuctionning(@RequestParam(defaultValue = "1") int page,
+                                                     @RequestParam(defaultValue = "10") int pageSize) {
+        GetAllResponse postLabelResponse = productService.getByAuctioning(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
     @GetMapping("/get-by-auctioned")
-    public ResponseEntity<?> getProductByAuctioned() {
-        GetAllResponse postLabelResponse = productService.getByAuctioned();
+    public ResponseEntity<?> getProductByAuctioned(@RequestParam(defaultValue = "1") int page,
+                                                   @RequestParam(defaultValue = "10") int pageSize) {
+        GetAllResponse postLabelResponse = productService.getByAuctioned(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 

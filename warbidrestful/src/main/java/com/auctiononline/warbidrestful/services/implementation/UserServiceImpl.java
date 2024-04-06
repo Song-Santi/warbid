@@ -5,6 +5,8 @@ import com.auctiononline.warbidrestful.models.ERole;
 import com.auctiononline.warbidrestful.models.Role;
 import com.auctiononline.warbidrestful.models.Token;
 import com.auctiononline.warbidrestful.models.User;
+import com.auctiononline.warbidrestful.payload.dto.Paging;
+import com.auctiononline.warbidrestful.payload.dto.ProductDTO;
 import com.auctiononline.warbidrestful.payload.request.EmailForgotRequest;
 import com.auctiononline.warbidrestful.payload.request.PasswordRequest;
 import com.auctiononline.warbidrestful.payload.request.TokenRequest;
@@ -24,10 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -47,14 +46,25 @@ public class UserServiceImpl implements UserService {
     private JavaMailSender javaMailSender;
 
     @Override
-    public GetAllResponse getAllUser(){
+    public GetAllResponse getAllUser(int page, int pageSize){
         try {
             List<User> activeUsers = userRepository.findAllActiveUsers();
+
+            int totalItems = activeUsers.size();
+            int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+            int startIndex = (page - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            List<User> activeUsersOnPage = new ArrayList<>(activeUsers.subList(startIndex, endIndex));
+
+            Paging paging = new Paging(page, totalPages, pageSize, totalItems);
+
              return new GetAllResponse(
                     200,
                     "OK",
                     "Get all user list",
-                    activeUsers
+                     paging,
+                     activeUsersOnPage
             );
         } catch (AppException ex) {
             return new GetAllResponse(
@@ -67,14 +77,25 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public GetAllResponse getAllUserBySearch(String searchTerm){
+    public GetAllResponse getAllUserBySearch(int page, int pageSize, String searchTerm){
         try {
             List<User> activeUsers = userRepository.searchUsersByKeyword(searchTerm);
+
+            int totalItems = activeUsers.size();
+            int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+            int startIndex = (page - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            List<User> activeUsersOnPage = new ArrayList<>(activeUsers.subList(startIndex, endIndex));
+
+            Paging paging = new Paging(page, totalPages, pageSize, totalItems);
+
             return new GetAllResponse(
                     200,
                     "OK",
                     "Get all user list",
-                    activeUsers
+                    paging,
+                    activeUsersOnPage
             );
 
         } catch (AppException ex) {

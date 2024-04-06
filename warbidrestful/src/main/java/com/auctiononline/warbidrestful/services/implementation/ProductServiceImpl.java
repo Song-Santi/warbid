@@ -6,6 +6,7 @@ import com.auctiononline.warbidrestful.models.Category;
 import com.auctiononline.warbidrestful.models.Post;
 import com.auctiononline.warbidrestful.models.Product;
 import com.auctiononline.warbidrestful.payload.dto.AuctionTheBestDTO;
+import com.auctiononline.warbidrestful.payload.dto.Paging;
 import com.auctiononline.warbidrestful.payload.dto.PostLabelDTO;
 import com.auctiononline.warbidrestful.payload.dto.ProductDTO;
 import com.auctiononline.warbidrestful.payload.request.PostRequest;
@@ -39,13 +40,22 @@ public class ProductServiceImpl implements ProductService {
     private AuctionRepository auctionRepository;
 
     @Override
-    public GetAllResponse getAll(){
+    public GetAllResponse getAll(int page, int pageSize){
         try {
             //List<Category> categories = categoryRepository.findCategoryById().get(0);
            List<Product> products = productRepository.getAllProductActive();
            List<ProductDTO> productDTOs = convertListProductToProductDTO(products);
 
-         return new GetAllResponse(200, "OK", "Get all product successful!", productDTOs);
+            int totalItems = productDTOs.size();
+            int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+            int startIndex = (page - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            List<ProductDTO> productDTOsOnPage = new ArrayList<>(productDTOs.subList(startIndex, endIndex));
+
+            Paging paging = new Paging(page, totalPages, pageSize, totalItems);
+
+         return new GetAllResponse(200, "OK", "Get all product successful!", paging, productDTOsOnPage);
         } catch (AppException ex) {
             return new GetAllResponse(500, ex.getHttpStatus().toString(), ex.getMessage(), null);
         }
@@ -67,7 +77,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public GetAllResponse getBySearch(String search){
+    public GetAllResponse getBySearch(int page, int pageSize, String search){
         try {
             List<Product> products = productRepository.searchProductByKeyword(search);
             if(products.isEmpty()){
@@ -75,7 +85,16 @@ public class ProductServiceImpl implements ProductService {
             }
             List<ProductDTO> productDTOs = convertListProductToProductDTO(products);
 
-            return new GetAllResponse(200, "OK", "Get all product by keyword successful!", productDTOs);
+            int totalItems = productDTOs.size();
+            int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+            int startIndex = (page - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            List<ProductDTO> productDTOsOnPage = new ArrayList<>(productDTOs.subList(startIndex, endIndex));
+
+            Paging paging = new Paging(page, totalPages, pageSize, totalItems);
+
+            return new GetAllResponse(200, "OK", "Get all product by keyword successful!", paging, productDTOsOnPage);
         } catch (AppException ex) {
             return new GetAllResponse(500, ex.getHttpStatus().toString(), ex.getMessage(), null);
         }
@@ -98,7 +117,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public GetAllResponse getByYetAuction(){
+    public GetAllResponse getByYetAuction(int page, int pageSize){
         try {
             LocalDateTime currentTime = LocalDateTime.now();
             List<Product> products = productRepository.getAllActiveProductsNotAuctioned(currentTime);
@@ -107,14 +126,23 @@ public class ProductServiceImpl implements ProductService {
             }
             List<ProductDTO> productDTOs = convertListProductToProductDTO(products);
 
-            return new GetAllResponse(200, "OK", "Get products that have been successfully auctioned!", productDTOs);
+            int totalItems = productDTOs.size();
+            int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+            int startIndex = (page - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            List<ProductDTO> productDTOsOnPage = new ArrayList<>(productDTOs.subList(startIndex, endIndex));
+
+            Paging paging = new Paging(page, totalPages, pageSize, totalItems);
+
+            return new GetAllResponse(200, "OK", "Get products that have been successfully auctioned!", paging, productDTOsOnPage);
         } catch (AppException ex) {
             return new GetAllResponse(500, ex.getHttpStatus().toString(), ex.getMessage(), null);
         }
     }
 
     @Override
-    public GetAllResponse getByAuctioning(){
+    public GetAllResponse getByAuctioning(int page, int pageSize){
         try {
             LocalDateTime currentTime = LocalDateTime.now();
             List<Product> products = productRepository.getAllActiveProductsAuctioning(currentTime);
@@ -123,14 +151,23 @@ public class ProductServiceImpl implements ProductService {
             }
             List<ProductDTO> productDTOs = convertListProductToProductDTO(products);
 
-            return new GetAllResponse(200, "OK", "Get the product being auctioned", productDTOs);
+            int totalItems = productDTOs.size();
+            int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+            int startIndex = (page - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            List<ProductDTO> productDTOsOnPage = new ArrayList<>(productDTOs.subList(startIndex, endIndex));
+
+            Paging paging = new Paging(page, totalPages, pageSize, totalItems);
+
+            return new GetAllResponse(200, "OK", "Get the product being auctioned", paging, productDTOsOnPage);
         } catch (AppException ex) {
             return new GetAllResponse(500, ex.getHttpStatus().toString(), ex.getMessage(), null);
         }
     }
 
     @Override
-    public GetAllResponse getByAuctioned(){
+    public GetAllResponse getByAuctioned(int page, int pageSize){
         try {
             LocalDateTime currentTime = LocalDateTime.now();
             List<Product> products = productRepository.getAllActiveProductsAuctioned(currentTime);
@@ -139,7 +176,16 @@ public class ProductServiceImpl implements ProductService {
             }
             List<ProductDTO> productDTOs = convertListProductToProductDTO(products);
 
-            return new GetAllResponse(200, "OK", "Get product auctioning successful!", productDTOs);
+            int totalItems = productDTOs.size();
+            int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+            int startIndex = (page - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            List<ProductDTO> productDTOsOnPage = new ArrayList<>(productDTOs.subList(startIndex, endIndex));
+
+            Paging paging = new Paging(page, totalPages, pageSize, totalItems);
+
+            return new GetAllResponse(200, "OK", "Get product auctioning successful!", paging, productDTOsOnPage);
         } catch (AppException ex) {
             return new GetAllResponse(500, ex.getHttpStatus().toString(), ex.getMessage(), null);
         }

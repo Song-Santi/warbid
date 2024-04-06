@@ -42,15 +42,18 @@ public class UserController {
 
     @GetMapping("/get-all")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> getAllUser() {
-        GetAllResponse getAllUserResponse = userService.getAllUser();
+    public ResponseEntity<?> getAllUser(@RequestParam(defaultValue = "1") int page,
+                                        @RequestParam(defaultValue = "10") int pageSize) {
+        GetAllResponse getAllUserResponse = userService.getAllUser(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(getAllUserResponse);
     }
 
-    @PostMapping("/get-user-by-search/{searchString}")
+    @GetMapping("/get-user-by-search/{searchString}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> addUser( @PathVariable String searchString) {
-        GetAllResponse getAllUserResponse = userService.getAllUserBySearch(searchString);
+    public ResponseEntity<?> getUserBySearch( @RequestParam(defaultValue = "1") int page,
+                                              @RequestParam(defaultValue = "10") int pageSize,
+                                              @PathVariable String searchString) {
+        GetAllResponse getAllUserResponse = userService.getAllUserBySearch(page, pageSize,searchString);
         return ResponseEntity.status(HttpStatus.OK).body(getAllUserResponse);
     }
 

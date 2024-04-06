@@ -66,14 +66,16 @@ public class TestController {
   }
 
   @GetMapping("/get-all-label")
-  public ResponseEntity<?> getAllLabel() {
-    GetAllResponse postLabelResponse = postService.getAllPostLabel();
+  public ResponseEntity<?> getAllLabel(@RequestParam(defaultValue = "1") int page,
+                                       @RequestParam(defaultValue = "10") int pageSize) {
+    GetAllResponse postLabelResponse = postService.getAllPostLabel(page, pageSize);
     return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
   }
 
   @GetMapping("/get-all-product")
-  public ResponseEntity<?> getAllProduct() {
-    GetAllResponse postLabelResponse = productService.getAll();
+  public ResponseEntity<?> getAllProduct(@RequestParam(defaultValue = "1") int page,
+                                         @RequestParam(defaultValue = "10") int pageSize) {
+    GetAllResponse postLabelResponse = productService.getAll(page, pageSize);
     return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
   }
 }

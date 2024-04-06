@@ -4,9 +4,9 @@ import com.auctiononline.warbidrestful.payload.response.GetAllResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 
 public interface FeedbackService {
-    GetAllResponse getAllFeedbackProduct();
-    GetAllResponse getAllFeedbackPost();
-    GetAllResponse getAllFeedbackContact();
+    GetAllResponse getAllFeedbackProduct(int page, int pageSize);
+    GetAllResponse getAllFeedbackPost(int page, int pageSize);
+    GetAllResponse getAllFeedbackContact(int page, int pageSize);
 
     GetAllResponse getFeedbackProductById(Long id);
 

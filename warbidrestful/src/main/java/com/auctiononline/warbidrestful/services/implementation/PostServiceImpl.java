@@ -1,7 +1,9 @@
 package com.auctiononline.warbidrestful.services.implementation;
 
 import com.auctiononline.warbidrestful.exception.AppException;
+import com.auctiononline.warbidrestful.models.Category;
 import com.auctiononline.warbidrestful.models.Post;
+import com.auctiononline.warbidrestful.payload.dto.Paging;
 import com.auctiononline.warbidrestful.payload.dto.PostLabelDTO;
 import com.auctiononline.warbidrestful.payload.request.PostRequest;
 import com.auctiononline.warbidrestful.payload.response.GetAllResponse;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,14 +32,23 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public GetAllResponse getAllPostLabel(){
+    public GetAllResponse getAllPostLabel(int page, int pageSize){
         try {
             List<PostLabelDTO> postLabelList = postRepository.findAllActivePosts()
                     .stream()
                     .map(this::toDTO)
                     .collect(Collectors.toList());
 
-            return new GetAllResponse(200, "OK", "Get all post label", postLabelList);
+            int totalItems = postLabelList.size();
+            int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+            int startIndex = (page - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            List<PostLabelDTO> postLabelListOnPage = new ArrayList<>(postLabelList.subList(startIndex, endIndex));
+
+            Paging paging = new Paging(page, totalPages, pageSize, totalItems);
+
+            return new GetAllResponse(200, "OK", "Get all post label", paging, postLabelListOnPage);
         } catch (AppException ex) {
             return new GetAllResponse(500, ex.getHttpStatus().toString(), ex.getMessage(), null);
         }
@@ -44,11 +56,20 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public GetAllResponse getAllPost(){
+    public GetAllResponse getAllPost(int page, int pageSize){
         try{
-            List<Post> postList = postRepository.findAll();
+            List<Post> postList = postRepository.findAllActivePosts();
 
-            return new GetAllResponse(200,"OK", "Get all post", postList);
+            int totalItems = postList.size();
+            int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+            int startIndex = (page - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            List<Post> postListOnPage = new ArrayList<>(postList.subList(startIndex, endIndex));
+
+            Paging paging = new Paging(page, totalPages, pageSize, totalItems);
+
+            return new GetAllResponse(200,"OK", "Get all post",  paging, postListOnPage);
         }catch(AppException ex){
             return  new GetAllResponse(500, ex.getHttpStatus().toString(), ex.getMessage(), null);
         }

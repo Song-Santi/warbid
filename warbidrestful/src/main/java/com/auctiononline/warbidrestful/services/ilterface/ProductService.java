@@ -7,19 +7,19 @@ import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 import java.time.LocalDateTime;
 
 public interface ProductService {
-    GetAllResponse getAll();
+    GetAllResponse getAll(int page, int pageSize);
 
     GetAllResponse getById(Long id);
 
-    GetAllResponse getBySearch(String search);
+    GetAllResponse getBySearch(int page, int pageSize, String search);
 
     GetAllResponse getByCategory(Integer categoryId);
 
-    GetAllResponse getByYetAuction();
+    GetAllResponse getByYetAuction(int page, int pageSize);
 
-    GetAllResponse getByAuctioning();
+    GetAllResponse getByAuctioning(int page, int pageSize);
 
-    GetAllResponse getByAuctioned();
+    GetAllResponse getByAuctioned(int page, int pageSize);
 
     MessageResponse add(ProductRequest productRequest);
 
