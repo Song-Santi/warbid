@@ -20,8 +20,9 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<?> getAll() {
-        GetAllResponse postLabelResponse = categoryService.getAll();
+    public ResponseEntity<?> getAll(@RequestParam(defaultValue = "1") int page,
+                                    @RequestParam(defaultValue = "10") int pageSize) {
+        GetAllResponse postLabelResponse = categoryService.getAll(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 

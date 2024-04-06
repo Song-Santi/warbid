@@ -2,6 +2,7 @@ package com.auctiononline.warbidrestful.services.implementation;
 
 import com.auctiononline.warbidrestful.exception.AppException;
 import com.auctiononline.warbidrestful.models.Category;
+import com.auctiononline.warbidrestful.payload.dto.Paging;
 import com.auctiononline.warbidrestful.payload.response.GetAllResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 import com.auctiononline.warbidrestful.repository.CategoryRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,10 +19,19 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public GetAllResponse getAll(){
+    public GetAllResponse getAll(int page, int pageSize){
         try{
             List<Category> categories = categoryRepository.findAll();
-            return new GetAllResponse(200, "OK","Get all category", categories);
+            int totalItems = categories.size();
+            int totalPages = (int) Math.ceil((double) totalItems / pageSize);
+            int startIndex = (page - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            List<Category> categoriesOnPage = new ArrayList<>(categories.subList(startIndex, endIndex));
+
+            Paging paging = new Paging(page, totalPages, pageSize, totalItems);
+
+            return new GetAllResponse(200, "OK","Get all category",paging, categoriesOnPage);
         }catch (AppException ex){
             return new GetAllResponse(500, ex.getHttpStatus().toString(), ex.getMessage(),null);
         }

@@ -7,7 +7,7 @@ import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 import java.util.List;
 
 public interface CategoryService {
-    GetAllResponse getAll();
+    GetAllResponse getAll(int page, int pageSize);
     GetAllResponse getById(Integer id);
 
     GetAllResponse getByName(String name);
