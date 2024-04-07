@@ -299,7 +299,7 @@
 </header>
 
 <body>
-    <section class="product_Details">
+    <section class="product_Details bid_Detailsuser">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -321,17 +321,13 @@
                 <div class="col-lg-6">
                     <div class="time_Cooldown">
                         <div class="title_Tcooldown">
-                            <legend>Thời gian đếm ngược đấu giá</legend>
+                            <legend>Thời gian còn lại</legend>
                             <div class="time_Details">
                                 <div class="number_Tdetails">
                                     <p>10</p>
                                     <p>10</p>
-                                    <p>10</p>
-                                    <p>10</p>
                                 </div>
                                 <div class="text_Tdetails">
-                                    <p>Ngày</p>
-                                    <p>Giờ</p>
                                     <p>Phút</p>
                                     <p>Giây</p>
                                 </div>
@@ -339,51 +335,49 @@
                         </div>
                     </div>
                     <div class="info_Product">
-                        <div class="row">
-                            <div class="col-lg-6 info_Product_left">
-                                <p>Mã tài sản:</p>
-                                <p>Thời gian mở đăng ký:</p>
-                                <p>Thời gian kết thúc đăng ký:</p>
-                                <p>Giá khởi điểm</p>
-                                <p>Phí đăng ký tham gia:</p>
-                                <p>Bước giá:</p>
-                                <p>Số bước giá tối đa/ lần trả</p>
-                                <p>Giá khởi điểm:</p>
-                                <p>Phương thức đấu giá:</p>
-                                <p>Tên chủ tài sản:</p>
-                                <p>Nơi xem tài sản:</p>
-                                <p>Thời gian xem tài sản:</p>
-                                <p>Thời gian bắt đầu trả giá:</p>
-                                <p>Thời gian kết thúc đấu giá:</p>
-                            </div>
-                            <div class="col-lg-6 info_Product_right">
-                                <p>MTS-0TYPCD</p>
-                                <p>10/10/1010 10:10:10</p>
-                                <p>10/10/1010 10:10:10</p>
-                                <p>10.101.010.101 VNĐ</p>
-                                <p>10.101.010 VNĐ</p>
-                                <p>10.000.000 VNĐ</p>
-                                <p>10 bước giá, 10 phút cuối bước giá không giới hạn</p>
-                                <p>99.999.999 VNĐ</p>
-                                <p>Trả giá liên tục</p>
-                                <p>Đỗ Thái Anh</p>
-                                <p>Hình ảnh</p>
-                                <p></p>
-                                <p>10/10/1010 10:10:10</p>
-                                <p>10/10/1010 10:10:10</p>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="btn_Signinbid">
-                                    <button class="pushable">
-                                        <span class="shadow"></span>
-                                        <span class="edge"></span>
-                                        <span class="front">
-                                            <i class="fa-solid fa-gavel"></i> Sell with us
-                                        </span>
-                                    </button>
+                        <form action="">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="box_Pricebid" >
+                                        <div id="transaction_count"></div>
+                                        <div>$</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="box_Comment" id="style_Scrollbar">
+                                        <p>Thaianhdo: aaaaaaaaaa</p>
+                                        <p>Thaison: aaaaaaaaaa</p>
+                                        <p>Dinhtruong: aaaaaaaaaa</p>
+                                        <p>Song: aaaaaaaaaa</p>
+                                        <p>No user: aaaaaaaaaa</p>
+                                        <p>No name: aaaaaaaaaa</p>
+                                        <p>No name: aaaaaaaaaa</p>
+                                        <p>No name: aaaaaaaaaa</p>
+                                        <p>No name: aaaaaaaaaa</p>
+                                        <p>No name: aaaaaaaaaa</p>
+                                        <p>No name: aaaaaaaaaa</p>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="inputGroup">
+                                        <input type="text" required="" autocomplete="off">
+                                        <label for="name">Bình luận</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="btn_Signinbid">
+                                        <button class="pushable">
+                                            <span class="shadow"></span>
+                                            <span class="edge"></span>
+                                            <span class="front">
+                                                <i class="fa-solid fa-gavel"></i> Gửi
+                                            </span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -453,7 +447,42 @@
                                         (Thông báo này thay cho thư mời tham gia đấu giá).                                    </p>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                <div class="row">
+                                    <div class="col-lg-6 info_Product_left">
+                                        <p>Mã tài sản:</p>
+                                        <p>Thời gian mở đăng ký:</p>
+                                        <p>Thời gian kết thúc đăng ký:</p>
+                                        <p>Giá khởi điểm</p>
+                                        <p>Phí đăng ký tham gia:</p>
+                                        <p>Bước giá:</p>
+                                        <p>Số bước giá tối đa/ lần trả</p>
+                                        <p>Giá khởi điểm:</p>
+                                        <p>Phương thức đấu giá:</p>
+                                        <p>Tên chủ tài sản:</p>
+                                        <p>Nơi xem tài sản:</p>
+                                        <p>Thời gian xem tài sản:</p>
+                                        <p>Thời gian bắt đầu trả giá:</p>
+                                        <p>Thời gian kết thúc đấu giá:</p>
+                                    </div>
+                                    <div class="col-lg-6 info_Product_right">
+                                        <p>MTS-0TYPCD</p>
+                                        <p>10/10/1010 10:10:10</p>
+                                        <p>10/10/1010 10:10:10</p>
+                                        <p>10.101.010.101 VNĐ</p>
+                                        <p>10.101.010 VNĐ</p>
+                                        <p>10.000.000 VNĐ</p>
+                                        <p>10 bước giá, 10 phút cuối bước giá không giới hạn</p>
+                                        <p>99.999.999 VNĐ</p>
+                                        <p>Trả giá liên tục</p>
+                                        <p>Đỗ Thái Anh</p>
+                                        <p>Hình ảnh</p>
+                                        <p></p>
+                                        <p>10/10/1010 10:10:10</p>
+                                        <p>10/10/1010 10:10:10</p>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
                         </div>
                     </div>
