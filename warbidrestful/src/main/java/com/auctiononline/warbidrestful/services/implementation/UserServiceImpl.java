@@ -7,10 +7,7 @@ import com.auctiononline.warbidrestful.models.Token;
 import com.auctiononline.warbidrestful.models.User;
 import com.auctiononline.warbidrestful.payload.dto.Paging;
 import com.auctiononline.warbidrestful.payload.dto.ProductDTO;
-import com.auctiononline.warbidrestful.payload.request.EmailForgotRequest;
-import com.auctiononline.warbidrestful.payload.request.PasswordRequest;
-import com.auctiononline.warbidrestful.payload.request.TokenRequest;
-import com.auctiononline.warbidrestful.payload.request.UserRequest;
+import com.auctiononline.warbidrestful.payload.request.*;
 import com.auctiononline.warbidrestful.payload.response.GetAllResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 import com.auctiononline.warbidrestful.repository.RoleRepository;
@@ -311,7 +308,7 @@ public class UserServiceImpl implements UserService {
                 return new MessageResponse(429, HttpStatus.TOO_MANY_REQUESTS,"Too many failed attempts. Please try again later!");
             }
             // check token
-            if(tokenRequest.getToken() != tokenAvaliable.getToken()){
+            if(!tokenRequest.getToken().equals(tokenAvaliable.getToken())){
                 Token tokenUpdateFaliledCount = new Token(tokenAvaliable.getId(),
                             tokenAvaliable.getToken(),
                             tokenAvaliable.getExpiry(),
@@ -322,10 +319,56 @@ public class UserServiceImpl implements UserService {
                             tokenAvaliable.getDeleted()
                         );
                     tokenRepository.save(tokenUpdateFaliledCount);
+
                     return new MessageResponse(401, HttpStatus.UNAUTHORIZED,"Invalid token. Please try again!");
             }
 
-            return new MessageResponse(200, HttpStatus.OK,"Request token successful!");
+            return new MessageResponse(200, HttpStatus.OK,"Check the token successfully");
+        }
+    }
+
+    @Override
+    public MessageResponse changePassDueForgot(ChangePassDueForgotRequest changePassDueForgotRequest){
+        try{
+            Optional<User> user = userRepository.findByEmail(changePassDueForgotRequest.getEmail());
+            if(!user.isPresent()){
+                return new MessageResponse(404, HttpStatus.NOT_FOUND,"User not found!", null);
+            }
+            User userFind = user.get();
+            Long userId = userFind.getId();
+
+            List<Token> tokens = tokenRepository.findByUserIdAndDeleted(userId, false);
+            if(tokens.isEmpty()){
+                return new MessageResponse(404, HttpStatus.NOT_FOUND,"This account has no forgotten information!",null);
+            }
+            Token token = tokens.get(tokens.size() - 1);
+            Token tokenUpdate = new Token(token.getId(),
+                    token.getToken(),
+                    token.getExpiry(),
+                    token.getFailedCount(),
+                    token.getUser(),
+                    token.getCreatedTime(),
+                    LocalDateTime.now(),
+                    true);
+            tokenRepository.save(tokenUpdate);
+            String encodedPassword = encoder.encode(changePassDueForgotRequest.getPassword());
+            User userUpdate = new User(
+                    userFind.getUsername(),
+                    userFind.getEmail(),
+                    encodedPassword,
+                    userFind.getPhone(),
+                    userFind.getAddress()
+            );
+
+            userUpdate.setId(userFind.getId());
+            userUpdate.setRoles(userFind.getRoles());
+            userUpdate.setDeleted(false);
+
+            userRepository.save(userUpdate);
+            return new MessageResponse(200, HttpStatus.OK, "The account has been updated with a new password!", null);
+
+        }catch (AppException ex){
+            return new MessageResponse(500, ex.getHttpStatus(), ex.getMessage(),null);
         }
     }
 
@@ -338,7 +381,7 @@ public class UserServiceImpl implements UserService {
 
         User userDb = user.get();
 
-        String encodedPassword = encoder.encode(userDb.getPassword());
+        String encodedPassword = encoder.encode(passwordRequest.getPassword());
         User updateUser = new User(
                 userDb.getUsername(),
                 userDb.getEmail(),

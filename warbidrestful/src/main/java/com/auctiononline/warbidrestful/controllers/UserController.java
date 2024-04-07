@@ -2,10 +2,7 @@ package com.auctiononline.warbidrestful.controllers;
 
 import com.auctiononline.warbidrestful.models.Role;
 import com.auctiononline.warbidrestful.models.User;
-import com.auctiononline.warbidrestful.payload.request.EmailForgotRequest;
-import com.auctiononline.warbidrestful.payload.request.PasswordRequest;
-import com.auctiononline.warbidrestful.payload.request.TokenRequest;
-import com.auctiononline.warbidrestful.payload.request.UserRequest;
+import com.auctiononline.warbidrestful.payload.request.*;
 import com.auctiononline.warbidrestful.payload.response.GetAllResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 import com.auctiononline.warbidrestful.repository.UserRepository;
@@ -133,6 +130,17 @@ public class UserController {
             return invalidResponse;
         }
         MessageResponse messageResponse = userService.checkToken(tokenRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
+    }
+
+    @PostMapping("/change-pass-due-forgot")
+    public ResponseEntity<?> changePassDueForgot(@RequestBody @Valid ChangePassDueForgotRequest changePassDueForgotRequest, BindingResult bindingResult) {
+        ResponseEntity<?> invalidResponse = invalidResponse(bindingResult);
+        if (invalidResponse != null) {
+            return invalidResponse;
+        }
+
+        MessageResponse messageResponse = userService.changePassDueForgot(changePassDueForgotRequest);
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
     }
 

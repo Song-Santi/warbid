@@ -1,10 +1,7 @@
 package com.auctiononline.warbidrestful.services.ilterface;
 
 import com.auctiononline.warbidrestful.models.Role;
-import com.auctiononline.warbidrestful.payload.request.EmailForgotRequest;
-import com.auctiononline.warbidrestful.payload.request.PasswordRequest;
-import com.auctiononline.warbidrestful.payload.request.TokenRequest;
-import com.auctiononline.warbidrestful.payload.request.UserRequest;
+import com.auctiononline.warbidrestful.payload.request.*;
 import com.auctiononline.warbidrestful.payload.response.GetAllResponse;
 import com.auctiononline.warbidrestful.payload.response.MessageResponse;
 
@@ -27,6 +24,8 @@ public interface UserService {
     MessageResponse emailSendToken(EmailForgotRequest emailForgotRequest);
 
     MessageResponse checkToken(TokenRequest tokenRequest);
+
+    MessageResponse changePassDueForgot(ChangePassDueForgotRequest changePassDueForgotRequest);
 
     MessageResponse changePassword(PasswordRequest passwordRequest);
 

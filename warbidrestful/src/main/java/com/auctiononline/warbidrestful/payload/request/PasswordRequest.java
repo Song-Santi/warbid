@@ -10,7 +10,7 @@ import lombok.Data;
 @Builder
 public class PasswordRequest {
     @NotBlank(message = "Username must not be blank")
-    @Size(min = 4, max = 50, message = "Username must be between 4 and 50 characters")
+    @Size(min = 3, max = 50, message = "Username must be between 4 and 50 characters")
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username must contain only alphanumeric characters")
     private String username;
 
