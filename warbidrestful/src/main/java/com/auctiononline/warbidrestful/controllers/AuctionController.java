@@ -22,7 +22,7 @@ public class AuctionController {
     @Autowired
     private AuctionService auctionService;
 
-    @PostMapping("/register-auction")
+    @PostMapping("/private/register-auction")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> registerAuction(@RequestBody @Valid AuctionRegisterRequest auctionRegisterRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = UserController.invalidResponse(bindingResult);
@@ -33,7 +33,7 @@ public class AuctionController {
         return ResponseEntity.status(HttpStatus.OK).body(auctionRegisterResponse);
     }
 
-    @PostMapping("/auctioning")
+    @PostMapping("/private/auctioning")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> incrementPriceAuction(@RequestBody @Valid AuctionRequest auctionRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = UserController.invalidResponse(bindingResult);
@@ -44,7 +44,7 @@ public class AuctionController {
         return ResponseEntity.status(HttpStatus.OK).body(auctionRegisterResponse);
     }
 
-    @GetMapping("/get-best-price/{productId}")
+    @GetMapping("/public/get-best-price/{productId}")
     public ResponseEntity<?> getBestPrice(@PathVariable Long productId) {
         GetAllResponse postLabelResponse = auctionService.bestAuctionProduct(productId);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);

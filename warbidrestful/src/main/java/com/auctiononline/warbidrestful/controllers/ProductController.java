@@ -21,20 +21,20 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/get-all")
+    @GetMapping("/public/get-all")
     public ResponseEntity<?> getAllProduct(@RequestParam(defaultValue = "1") int page,
                                            @RequestParam(defaultValue = "10") int pageSize) {
         GetAllResponse postLabelResponse = productService.getAll(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @GetMapping("/get-by-id/{id}")
+    @GetMapping("/public/get-by-id/{id}")
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
         GetAllResponse postLabelResponse = productService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @GetMapping("/get-by-search/{search}")
+    @GetMapping("/public/get-by-search/{search}")
     public ResponseEntity<?> getProductByKeyword(@RequestParam(defaultValue = "1") int page,
                                                  @RequestParam(defaultValue = "10") int pageSize,
                                                  @PathVariable String search) {
@@ -42,34 +42,34 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @GetMapping("/get-by-category-id/{categoryId}")
+    @GetMapping("/public/get-by-category-id/{categoryId}")
     public ResponseEntity<?> getProductByCategoryId(@PathVariable Integer categoryId) {
         GetAllResponse postLabelResponse = productService.getByCategory(categoryId);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @GetMapping("/get-by-yet-auction")
+    @GetMapping("/public/get-by-yet-auction")
     public ResponseEntity<?> getProductByYetAuction(@RequestParam(defaultValue = "1") int page,
                                                     @RequestParam(defaultValue = "10") int pageSize) {
         GetAllResponse postLabelResponse = productService.getByYetAuction(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @GetMapping("/get-by-auctionning")
+    @GetMapping("/public/get-by-auctionning")
     public ResponseEntity<?> getProductByAuctionning(@RequestParam(defaultValue = "1") int page,
                                                      @RequestParam(defaultValue = "10") int pageSize) {
         GetAllResponse postLabelResponse = productService.getByAuctioning(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @GetMapping("/get-by-auctioned")
+    @GetMapping("/public/get-by-auctioned")
     public ResponseEntity<?> getProductByAuctioned(@RequestParam(defaultValue = "1") int page,
                                                    @RequestParam(defaultValue = "10") int pageSize) {
         GetAllResponse postLabelResponse = productService.getByAuctioned(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/private/add")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addProduct(@RequestBody @Valid ProductRequest productRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = UserController.invalidResponse(bindingResult);
@@ -80,7 +80,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(addProductResponse);
     }
 
-    @PostMapping("/update")
+    @PostMapping("/private/update")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateProduct(@RequestBody @Valid ProductRequest productRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = UserController.invalidResponse(bindingResult);
@@ -91,7 +91,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(updatePostResponse);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/private/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         MessageResponse messageResponse = productService.delete(id);

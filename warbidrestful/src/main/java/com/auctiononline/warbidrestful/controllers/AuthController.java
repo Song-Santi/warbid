@@ -2,10 +2,13 @@ package com.auctiononline.warbidrestful.controllers;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.auctiononline.warbidrestful.payload.response.UserInfoResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import com.auctiononline.warbidrestful.exception.AppException;
@@ -26,17 +29,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 //@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
@@ -59,7 +59,7 @@ public class AuthController {
   @Autowired
   JwtUtils jwtUtils;
 
-  @PostMapping("/signin")
+  @PostMapping("/public/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult bindingResult) {
     ResponseEntity<?> invalidResponse = UserController.invalidResponse(bindingResult);
     if (invalidResponse != null) {
@@ -78,24 +78,17 @@ public class AuthController {
               .body(new MessageResponse(401, HttpStatus.UNAUTHORIZED, "Bad credentials"));
     }
 
-    ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+    String token = jwtUtils.generateTokenFromUsername(loginRequest.getUsername());
 
     List<String> roles = userDetails.getAuthorities().stream()
-        .map(item -> item.getAuthority())
-        .collect(Collectors.toList());
+            .map(item -> item.getAuthority())
+            .collect(Collectors.toList());
+    UserInfo userInfo = new UserInfo(userDetails.getUsername(), token, roles);
 
-    UserInfo userInfo = new UserInfo(userDetails.getId(),
-            userDetails.getUsername(),
-            userDetails.getEmail(),
-            userDetails.getPhone(),
-            userDetails.getAddress(),
-            roles);
-
-    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-        .body(new UserInfoResponse(200,"OK","Get user information successfully!", userInfo));
+    return ResponseEntity.status(HttpStatus.OK).body(userInfo);
   }
 
-  @PostMapping("/signup")
+  @PostMapping("/public/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest, BindingResult bindingResult) {
     ResponseEntity<?> invalidResponse = UserController.invalidResponse(bindingResult);
     if (invalidResponse != null) {
@@ -150,10 +143,15 @@ public class AuthController {
     return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(200,HttpStatus.OK,"User registered successfully!"));
   }
 
-  @PostMapping("/signout")
-  public ResponseEntity<?> logoutUser() {
-    ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
-    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
-        .body(new MessageResponse(200,HttpStatus.OK,"You've been signed out!"));
-  }
+ // @PostMapping("/public/signout")
+  //@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+ // public ResponseEntity<?> logout() {
+//    ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
+//    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
+//        .body(new MessageResponse(200,HttpStatus.OK,"You've been signed out!"));
+//      String token = jwtUtils.getJwtFromCookies(request);
+//      return ResponseEntity.ok().body(token);
+
+  //}
+
 }

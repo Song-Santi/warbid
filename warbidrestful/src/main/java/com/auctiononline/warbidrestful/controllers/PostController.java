@@ -20,14 +20,14 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @GetMapping("/get-all-label")
+    @GetMapping("/public/get-all-label")
     public ResponseEntity<?> getAllLabel(@RequestParam(defaultValue = "1") int page,
                                          @RequestParam(defaultValue = "10") int pageSize) {
         GetAllResponse postLabelResponse = postService.getAllPostLabel(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @GetMapping("/get-all")
+    @GetMapping("/private/get-all")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAll(@RequestParam(defaultValue = "1") int page,
                                     @RequestParam(defaultValue = "10") int pageSize) {
@@ -35,13 +35,13 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @GetMapping("/get-by-id/{id}")
+    @GetMapping("/public/get-by-id/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
         GetAllResponse postLabelResponse = postService.getPostById(id);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/private/add")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addPost(@RequestBody @Valid PostRequest postRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = UserController.invalidResponse(bindingResult);
@@ -52,7 +52,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(addPostResponse);
     }
 
-    @PostMapping("/update")
+    @PostMapping("/private/update")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updatePost(@RequestBody @Valid PostRequest postRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = UserController.invalidResponse(bindingResult);
@@ -63,7 +63,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(updatePostResponse);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/private/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deletePost(@PathVariable Long id) {
         MessageResponse messageResponse = postService.deletePost(id);

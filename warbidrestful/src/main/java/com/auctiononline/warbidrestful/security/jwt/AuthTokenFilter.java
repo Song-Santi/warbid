@@ -2,6 +2,7 @@ package com.auctiononline.warbidrestful.security.jwt;
 
 import java.io.IOException;
 
+import com.auctiononline.warbidrestful.exception.AppException;
 import com.auctiononline.warbidrestful.security.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -36,21 +37,25 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        
-        UsernamePasswordAuthenticationToken authentication = 
+
+        UsernamePasswordAuthenticationToken authentication =
             new UsernamePasswordAuthenticationToken(userDetails,
                                                     null,
                                                     userDetails.getAuthorities());
-        
+
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
       }
+
+    } catch (AppException e) {
+        response.setStatus(e.getHttpStatus().value());
     } catch (Exception e) {
       logger.error("Cannot set user authentication: {}",e.getMessage(), e);
     }
+        filterChain.doFilter(request, response);
 
-    filterChain.doFilter(request, response);
+
   }
 
   private String parseJwt(HttpServletRequest request) {

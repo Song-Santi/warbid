@@ -19,27 +19,27 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/get-all")
+    @GetMapping("/public/get-all")
     public ResponseEntity<?> getAll(@RequestParam(defaultValue = "1") int page,
                                     @RequestParam(defaultValue = "10") int pageSize) {
         GetAllResponse postLabelResponse = categoryService.getAll(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @GetMapping("/get-by-id/{id}")
+    @GetMapping("/public/get-by-id/{id}")
     public ResponseEntity<?> getById(@PathVariable Integer id) {
         GetAllResponse postLabelResponse = categoryService.getById(id);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @GetMapping("/get-by-name/{name}")
+    @GetMapping("/public/get-by-name/{name}")
     public ResponseEntity<?> getByName(@PathVariable String name) {
         GetAllResponse postLabelResponse = categoryService.getByName(name);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @PostMapping("/add")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/private/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addCategory(@RequestBody @Valid Category category, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = UserController.invalidResponse(bindingResult);
         if (invalidResponse != null) {
@@ -49,7 +49,7 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(addPostResponse);
     }
 
-    @PostMapping("/update")
+    @PostMapping("/private/update")
     //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateCategory(@RequestBody @Valid Category category, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = UserController.invalidResponse(bindingResult);

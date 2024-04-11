@@ -37,7 +37,7 @@ public class UserController {
    @Autowired
    private UserRepository userRepository;
 
-    @GetMapping("/get-all")
+    @GetMapping("/private/get-all")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllUser(@RequestParam(defaultValue = "1") int page,
                                         @RequestParam(defaultValue = "10") int pageSize) {
@@ -45,7 +45,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(getAllUserResponse);
     }
 
-    @GetMapping("/get-user-by-search/{searchString}")
+    @GetMapping("/private/get-user-by-search/{searchString}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getUserBySearch( @RequestParam(defaultValue = "1") int page,
                                               @RequestParam(defaultValue = "10") int pageSize,
@@ -54,7 +54,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(getAllUserResponse);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/private/add")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserRequest userRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = invalidResponse(bindingResult);
@@ -65,7 +65,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
     }
 
-    @PostMapping("/update")
+    @PostMapping("/private/update")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateUser(@Valid @RequestBody UserRequest userRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = invalidResponse(bindingResult);
@@ -77,7 +77,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
     }
 
-    @PostMapping("/update-profile")
+    @PostMapping("/private/update-profile")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR')")
     public ResponseEntity<?> updateProfile(HttpServletRequest request, @Valid @RequestBody UserRequest userRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = invalidResponse(bindingResult);
@@ -99,21 +99,21 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/private/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         MessageResponse messageResponse = userService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
     }
 
-    @DeleteMapping("/restore/{id}")
+    @DeleteMapping("/private/restore/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> restoreUser(@PathVariable Long id) {
         MessageResponse messageResponse = userService.restore(id);
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
     }
 
-    @PostMapping("/send-token")
+    @PostMapping("/public/send-token")
     public ResponseEntity<?> sendToken(@RequestBody @Valid EmailForgotRequest emailForgotRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = invalidResponse(bindingResult);
         if (invalidResponse != null) {
@@ -123,7 +123,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
     }
 
-    @PostMapping("/check-token")
+    @PostMapping("/public/check-token")
     public ResponseEntity<?> checkToken(@RequestBody @Valid TokenRequest tokenRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = invalidResponse(bindingResult);
         if (invalidResponse != null) {
@@ -133,7 +133,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
     }
 
-    @PostMapping("/change-pass-due-forgot")
+    @PostMapping("/public/change-pass-due-forgot")
     public ResponseEntity<?> changePassDueForgot(@RequestBody @Valid ChangePassDueForgotRequest changePassDueForgotRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = invalidResponse(bindingResult);
         if (invalidResponse != null) {
@@ -144,7 +144,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
     }
 
-    @PostMapping("/change-password")
+    @PostMapping("/private/change-password")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> changePassword(@RequestBody @Valid PasswordRequest passwordRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = invalidResponse(bindingResult);

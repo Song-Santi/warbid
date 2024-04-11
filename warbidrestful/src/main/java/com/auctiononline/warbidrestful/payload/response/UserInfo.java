@@ -11,10 +11,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class UserInfo {
-	private Long id;
 	private String username;
-	private String email;
-	private String phone;
-	private String address;
+	private String token;
 	private List<String> roles;
 }
