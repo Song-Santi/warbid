@@ -31,19 +31,22 @@ public class FeedbackController {
     }
 
     @GetMapping("/private/get-all-contact")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllContact(@RequestParam(defaultValue = "1") int page,
                                            @RequestParam(defaultValue = "10") int pageSize) {
         GetAllResponse postLabelResponse = feedbackService.getAllFeedbackContact(page, pageSize);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @GetMapping("/public/get-feedback-product-by-id/{id}")
+    @GetMapping("/private/get-feedback-product-by-id/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getFeedbackProductById(@PathVariable Long id) {
         GetAllResponse postLabelResponse = feedbackService.getFeedbackProductById(id);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @GetMapping("/public/get-feedback-post-by-id/{id}")
+    @GetMapping("/private/get-feedback-post-by-id/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getFeedbackPostById(@PathVariable Long id) {
         GetAllResponse postLabelResponse = feedbackService.getFeedbackPostById(id);
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);

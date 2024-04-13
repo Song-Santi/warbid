@@ -8,6 +8,7 @@ import com.auctiononline.warbidrestful.security.UserDetailsImpl;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,102 +25,73 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Component
 public class JwtUtils {
-    private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+  private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${warbid.app.jwtSecret}")
-    private String jwtSecret;
+  @Value("${warbid.app.jwtSecret}")
+  private String jwtSecret;
 
-    @Value("${warbid.app.jwtExpirationMs}")
-    private int jwtExpirationMs;
+  @Value("${warbid.app.jwtExpirationMs}")
+  private int jwtExpirationMs;
 
-    @Value("${warbid.app.jwtCookieName}")
-    private String jwtCookie;
+  @Value("${warbid.app.jwtCookieName}")
+  private String jwtCookie;
 
-    public String getJwtFromCookies(HttpServletRequest request) {
-        String authorHeader = request.getHeader(AUTHORIZATION);
-        if(authorHeader == null){
-            throw new AppException(HttpStatus.UNAUTHORIZED, "Unauthorized");
-        }
-        //System.out.println("Autor header::: " + authorHeader.substring("Bearer".length() + 1));
+  public String getJwtFromCookies(HttpServletRequest request) {
+    String authorHeader = request.getHeader(AUTHORIZATION);
+    if(authorHeader == null){
+      throw new AppException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+    }
+    //System.out.println("Autor header::: " + authorHeader.substring("Bearer".length() + 1));
 //        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
 //        if (cookie != null) {
 //            return cookie.getValue();
 //        }
 //        return null;
-        return authorHeader.substring("Bearer".length() + 1);
+    return authorHeader.substring("Bearer".length() + 1);
+  }
+
+  public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
+    String jwt = generateTokenFromUsername(userPrincipal.getUsername());
+    return ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
+  }
+
+  public ResponseCookie getCleanJwtCookie() {
+    //return ResponseCookie.from(jwtCookie, null).path("/api").build();
+    return ResponseCookie.from(jwtCookie).path("/api").build();
+  }
+
+  public String getUserNameFromJwtToken(String token) {
+    return Jwts.parserBuilder().setSigningKey(key()).build()
+        .parseClaimsJws(token).getBody().getSubject();
+  }
+  
+  private Key key() {
+    return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
+  }
+
+  public boolean validateJwtToken(String authToken) {
+    try {
+      Jwts.parserBuilder().setSigningKey(key()).build().parse(authToken);
+      return true;
+    } catch (MalformedJwtException e) {
+      logger.error("Invalid JWT token: {}", e.getMessage());
+    } catch (ExpiredJwtException e) {
+      logger.error("JWT token is expired: {}", e.getMessage());
+    } catch (UnsupportedJwtException e) {
+      logger.error("JWT token is unsupported: {}", e.getMessage());
+    } catch (IllegalArgumentException e) {
+      logger.error("JWT claims string is empty: {}", e.getMessage());
     }
 
-    public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
-        String jwt = generateTokenFromUsername(userPrincipal.getUsername());
-        return ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
-    }
-
-    public ResponseCookie getCleanJwtCookie() {
-        //return ResponseCookie.from(jwtCookie, null).path("/api").build();
-        return ResponseCookie.from(jwtCookie).path("/api").build();
-    }
-
-    public String getUserNameFromJwtToken(String token) {
-        return Jwts.parserBuilder().setSigningKey(key()).build()
-                .parseClaimsJws(token).getBody().getSubject();
-    }
-
-    private Key key() {
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
-    }
-    public boolean validateJwtToken(String authToken) {
-
-        try {
-            Jwts.parserBuilder().setSigningKey(key()).build().parse(authToken);
-            return true;
-        } catch (MalformedJwtException e) {
-            logger.error("Invalid JWT token: {}", e.getMessage());
-        } catch (ExpiredJwtException e) {
-            logger.error("JWT token is expired: {}", e.getMessage());
-        } catch (UnsupportedJwtException e) {
-            logger.error("JWT token is unsupported: {}", e.getMessage());
-        } catch (IllegalArgumentException e) {
-            logger.error("JWT claims string is empty: {}", e.getMessage());
-        }
-
-        return false;
-    }
-
-    public String generateTokenFromUsername(String username) {
-        return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(key(), SignatureAlgorithm.HS256)
-                .compact();
-    }
-
-    public boolean expireToken(String token) {
-        try {
-            // authen token
-            Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(token);
-            Claims tokenClaims = claims.getBody();
-
-            // check expiry token
-            if (!tokenClaims.getExpiration().after(new Date())) {
-                return false;
-            }
-
-            //destroy old token, create new token
-            tokenClaims.setExpiration(new Date());
-            String newToken = Jwts.builder()
-                    .setClaims(tokenClaims)
-                    .signWith(key(), SignatureAlgorithm.HS256)
-                    .compact();
-
-            // destroy old and create new token success
-            return true;
-        } catch (ExpiredJwtException e) {
-            // Expired token
-            return false;
-        } catch (JwtException e) {
-            //e.printStackTrace();
-            return false;
-        }
-    }
+    return false;
+  }
+  
+  public String generateTokenFromUsername(String username) {   
+    return Jwts.builder()
+              .setSubject(username)
+              .setIssuedAt(new Date())
+              .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+              .signWith(key(), SignatureAlgorithm.HS256)
+              .compact();
+  }
 }

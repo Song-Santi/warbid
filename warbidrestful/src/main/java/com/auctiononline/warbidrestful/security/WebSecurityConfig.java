@@ -1,5 +1,7 @@
 package com.auctiononline.warbidrestful.security;
 
+import com.auctiononline.warbidrestful.exception.ApplicationExceptionHandler;
+import com.auctiononline.warbidrestful.security.jwt.AccessDeniedHandlerJwt;
 import com.auctiononline.warbidrestful.security.jwt.AuthEntryPointJwt;
 import com.auctiononline.warbidrestful.security.jwt.AuthTokenFilter;
 
@@ -26,6 +28,9 @@ public class WebSecurityConfig {
 
   @Autowired
   private AuthEntryPointJwt unauthorizedHandler;
+
+  @Autowired
+  private AccessDeniedHandlerJwt accessDeniedHandlerJwt;
 
   @Bean
   public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -55,10 +60,11 @@ public class WebSecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(csrf -> csrf.disable())
-        .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests(auth -> 
-          auth.requestMatchers("/api/test/**").permitAll()
+            .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler)
+                            .accessDeniedHandler(accessDeniedHandlerJwt))
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth ->
+            auth.requestMatchers("/api/test/**").permitAll()
                   .requestMatchers("/api/auth/public/**").permitAll()
                   .requestMatchers("/api/auth/private/**").authenticated()
                   .requestMatchers("/api/user/public/**").permitAll()

@@ -50,7 +50,7 @@ public class CategoryController {
     }
 
     @PostMapping("/private/update")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateCategory(@RequestBody @Valid Category category, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = UserController.invalidResponse(bindingResult);
         if (invalidResponse != null) {

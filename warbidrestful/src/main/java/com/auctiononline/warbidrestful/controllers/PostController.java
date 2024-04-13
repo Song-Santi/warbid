@@ -27,7 +27,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(postLabelResponse);
     }
 
-    @GetMapping("/private/get-all")
+    @GetMapping("/public/get-all")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAll(@RequestParam(defaultValue = "1") int page,
                                     @RequestParam(defaultValue = "10") int pageSize) {

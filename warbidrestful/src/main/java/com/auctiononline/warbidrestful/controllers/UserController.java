@@ -113,7 +113,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
     }
 
-    @PostMapping("/public/send-token")
+    @PostMapping("/pulic/send-token")
     public ResponseEntity<?> sendToken(@RequestBody @Valid EmailForgotRequest emailForgotRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = invalidResponse(bindingResult);
         if (invalidResponse != null) {
@@ -144,7 +144,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
     }
 
-    @PostMapping("/private/change-password")
+    @PostMapping("/public/change-password")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> changePassword(@RequestBody @Valid PasswordRequest passwordRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = invalidResponse(bindingResult);

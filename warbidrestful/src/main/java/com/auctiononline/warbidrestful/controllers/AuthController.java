@@ -2,13 +2,10 @@ package com.auctiononline.warbidrestful.controllers;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.auctiononline.warbidrestful.payload.response.UserInfoResponse;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import com.auctiononline.warbidrestful.exception.AppException;
@@ -29,14 +26,17 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 //@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
@@ -85,7 +85,7 @@ public class AuthController {
             .collect(Collectors.toList());
     UserInfo userInfo = new UserInfo(userDetails.getUsername(), token, roles);
 
-    return ResponseEntity.status(HttpStatus.OK).body(userInfo);
+    return ResponseEntity.status(HttpStatus.OK).body(new UserInfoResponse(200,"OK","Get user information successfully!", userInfo));
   }
 
   @PostMapping("/public/signup")
@@ -143,15 +143,10 @@ public class AuthController {
     return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(200,HttpStatus.OK,"User registered successfully!"));
   }
 
- // @PostMapping("/public/signout")
-  //@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
- // public ResponseEntity<?> logout() {
+//  @PostMapping("/public/signout")
+//  public ResponseEntity<?> logoutUser() {
 //    ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
 //    return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
 //        .body(new MessageResponse(200,HttpStatus.OK,"You've been signed out!"));
-//      String token = jwtUtils.getJwtFromCookies(request);
-//      return ResponseEntity.ok().body(token);
-
-  //}
-
+//  }
 }
