@@ -58,8 +58,7 @@ a {
 
  .shadow_None:focus {
   box-shadow: 0 2px 0 2px #000!important;
-}
-
+ }
 
 /* .slide_Main */
 
@@ -821,6 +820,13 @@ a {
 									   color-stop(0.44, rgb(122,153,217)),
 									   color-stop(0.72, rgb(73,125,189)),
 									   color-stop(0.86, rgb(28,58,148)));
+}
+
+.banner_Breadcrumb .box_Banner .bg_Banner ul li {
+    color: #fff;
+    margin: 0 5px;
+    font-size: 24px;
+    font-weight: 700;
 }
 
 
