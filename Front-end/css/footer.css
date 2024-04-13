@@ -1,0 +1,85 @@
+  /* footer */ 
+  footer {
+    background-color: #373234;
+    height: 300px;
+    padding: 50px 0;
+  }
+
+  footer .footer_Info {
+    color: #f2f2f2;
+  }
+
+  footer .social_Media ul {
+    display: flex;
+    justify-content: center;
+  }
+
+  footer ul {
+    padding: 0;
+  }
+
+  footer .social_Media ul li {
+    margin: 10px;
+  }
+
+  .social_Media .p-3 {
+    padding: 0.55rem !important;
+  }
+
+  .social_Media .p-4 {
+    padding: 0.45rem !important;
+  }
+
+ footer .footer_Info {
+    display: flex;
+    justify-content: space-evenly;
+ }
+
+ footer .footer_Info p {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 25px;
+ }
+
+ footer .footer_Info ul li a {
+    text-decoration: none;
+ }
+
+ footer .logo .box_Logo {
+    margin-bottom: 20px;
+ }
+
+ footer .logo .box_Logo img {
+    width: 100%;
+ }
+
+ footer .logo {
+    margin-top: -25px;
+ }
+
+/* bread crumb */
+
+.banner_Breadcrumb .box_Banner .bg_Banner {
+}
+
+.banner_Breadcrumb .box_Banner {
+    height: 200px;
+    background: url(../img/post-bidding.jpg);
+    background-size: cover;
+}
+
+.banner_Breadcrumb .box_Banner .bg_Banner .bread_crumb ul {
+    display: flex;
+    padding: 90px 100px;
+}
+
+.banner_Breadcrumb .box_Banner .bg_Banner ul li a {
+    color: #fff;
+}
+
+.banner_Breadcrumb .box_Banner .bg_Banner ul li {
+    color: #fff;
+    margin: 0 5px;
+    font-size: 24px;
+    font-weight: 700;
+}

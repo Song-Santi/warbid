@@ -49,4 +49,70 @@ $('.box_Slidemain').slick({
     focusOnSelect: true,
     arrows: false
   });
+
+  function animateNumber(finalNumber, delay, startNumber = 0, callback) {
+    let currentNumber = startNumber
+    const interval = window.setInterval(updateNumber, delay)
+    function updateNumber() {
+      if (currentNumber >= finalNumber) {
+        clearInterval(interval)
+      } else {
+        currentNumber++
+        callback(currentNumber)
+      }
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    animateNumber(4000000, 1, 0, function (number) {
+      const formattedNumber = number.toLocaleString()
+      document.getElementById('transaction_count').innerText = formattedNumber
+    })
+    
+    // animateNumber(98, 50, 0, function (number) {
+    //   const formattedNumber = number.toLocaleString()
+    //   document.getElementById('city-count').innerText = formattedNumber
+    // })
+    
+    // animateNumber(1500, 10, 0, function (number) {
+    //   const formattedNumber = number.toLocaleString()
+    //   document.getElementById('customer-count').innerText = formattedNumber
+    // })
+  });
+
+// const boxesBox = $('.boxes');
+// const scrollBox = $('.scroll');
+// const scrollMax = boxesBox[0].scrollHeight - boxesBox[0].clientHeight;
+// const scrollThumbHeigth = Math.round(getScrollThumbHeigth(boxesBox[0]));
+
+// scrollBox.css('--dasharray', scrollThumbHeigth + 1);
+// scrollBox.css('--dashoffset', getNewPosition(0));
+
+// boxesBox.scroll(function(){
+//   const scroll = boxesBox.scrollTop();
+//   scrollBox.css('--dashoffset', getNewPosition(scroll));
+// });
+
+// function getNewPosition(scroll){
+//   const min = scrollThumbHeigth;
+//   const max = -242;
+
+//   if (scroll === 0) { return min; }
+
+//   if (scroll === scrollMax) { return max; }
+
+//   const proportionalValue = min + ((max - min) * scroll) / scrollMax;
+//   return proportionalValue;
+// }
+
+// function getScrollThumbHeigth(element){
+//   const visibleHeigth = element.clientHeight;
+//   const totalHeigth = element.scrollHeight;
+//   const proportion = visibleHeigth / totalHeigth;
+//   const scrollThumbHeigth = proportion * visibleHeigth;
+
+//   return scrollThumbHeigth;
+// }
+
+
   

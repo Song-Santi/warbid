@@ -1,0 +1,156 @@
+/* cate_Allproduct */
+
+.cate_Allproduct .product_Div1 {
+    padding: 0;
+}
+
+.cate_Allproduct .product_Div1 .box_Product {
+    margin-bottom: 50px;
+}
+
+.cate_Allproduct {
+    padding: 50px 0;
+}
+
+.cate_Allproduct .search_Cate,
+.cate_Allproduct .checkbox_All {
+    padding: 25px 20px;
+    margin-bottom: 50px;
+    border: 1px solid #ccc;
+}
+
+.cate_Allproduct .title_Cate_checkbox p {
+    font-size: 20px;
+    margin-top: 2px;
+    margin-left: 20px;
+    margin-bottom: 5px !important;
+}
+
+.cate_Allproduct .search_Cate .title_Searchcate legend,
+.cate_Allproduct .checkbox_Status .title_checkbox legend,
+.cate_Allproduct .checkbox_Typeproduct .title_checkbox legend {
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-top: -36px;
+    background-color: #f4f2f0 !important;
+    width: auto;
+    padding: 0 5px;
+}
+
+.box_Searchcate .group {
+    display: flex;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    /* max-width: 190px; */
+    font-size: 18px;
+  }
+  
+.box_Searchcate  .input {
+    padding-top: 10px;
+    /* font-family: "Montserrat", sans-serif; */
+    width: 100%;
+    height: 45px;
+    padding-left: 2.5rem;
+    box-shadow: 0 0 0 1.5px #2b2c37, 0 0 25px -17px #000;
+    border: 0;
+    border-radius: 12px;
+    background-color: #16171d;
+    outline: none;
+    color: #bdbecb;
+    transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+    cursor: text;
+    z-index: 0;
+  }
+  
+ .box_Searchcate .input::placeholder {
+    color: #bdbecb;
+  }
+  
+ .box_Searchcate .input:hover {
+    box-shadow: 0 0 0 2.5px #2f303d, 0px 0px 25px -15px #000;
+  }
+  
+ .box_Searchcate .input:active {
+    transform: scale(0.95);
+  }
+  
+ .box_Searchcate .input:focus {
+    box-shadow: 0 0 0 2.5px #2f303d;
+  }
+  
+ .box_Searchcate .search-icon {
+    position: absolute;
+    left: 1rem;
+    fill: #bdbecb;
+    width: 1rem;
+    height: 1rem;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* check-box */
+
+ .cate_Allproduct .checkbox_All .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+ .cate_Allproduct .checkbox_All .container {
+    display: flex;
+    position: relative;
+    cursor: pointer;
+    font-size: 1.5rem;
+    user-select: none;
+    padding: 0;
+    margin-bottom: 0px;
+  }
+  
+  /* Create a custom checkbox */
+ .cate_Allproduct .checkbox_All .checkmark {
+    --clr: #0B6E4F;
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #ccc;
+    border-radius: 50%;
+    transition: 300ms;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+ .cate_Allproduct .checkbox_All .container input:checked ~ .checkmark {
+    background-color: var(--clr);
+    border-radius: .5rem;
+    animation: pulse 500ms ease-in-out;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+ .cate_Allproduct .checkbox_All .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+ .cate_Allproduct .checkbox_All .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+ .cate_Allproduct .checkbox_All .container .checkmark:after {
+    left: 0.45em;
+    top: 0.25em;
+    width: 0.25em;
+    height: 0.5em;
+    border: solid #E0E0E2;
+    border-width: 0 0.15em 0.15em 0;
+    transform: rotate(45deg);
+  }

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Trang chủ</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@400..800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/Back-end/css/main.css">
+    <link rel="stylesheet" href="/Front-end/css/font.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+      />
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="nav_Left">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="box_Logo">
+                        <img src="https://t3.ftcdn.net/jpg/06/14/84/58/360_F_614845842_pNcPaSxVwBiO6hGaaSXKrQOCs6xqnijX.jpg" alt="">
+                    </div>
+                    <!-- <div class="title_Admin">
+                      <p>Admin</p>
+                    </div> -->
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <button class="nav-link active" id="settings_tab" data-bs-toggle="pill" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="true">Cài đặt chung</button>
+                      <button class="nav-link" id="news_tab" data-bs-toggle="pill" data-bs-target="#news" type="button" role="tab" aria-controls="news" aria-selected="false">Tin tức</button>
+                      <button class="nav-link" id="albumsimg_tab" data-bs-toggle="pill" data-bs-target="#albums" type="button" role="tab" aria-controls="albums" aria-selected="false">Album Ảnh</button>
+                      <button class="nav-link" id="products_tab" data-bs-toggle="pill" data-bs-target="#products" type="button" role="tab" aria-controls="products" aria-selected="false">Sản phẩm</button>
+                      <button class="nav-link" id="bids_tab" data-bs-toggle="pill" data-bs-target="#bids" type="button" role="tab" aria-controls="bids" aria-selected="false">Đấu giá</button>
+                      <button class="nav-link" id="users_tab" data-bs-toggle="pill" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="false">Người dùng</button>
+                      <button class="nav-link" id="comments_tab" data-bs-toggle="pill" data-bs-target="#comments" type="button" role="tab" aria-controls="comments" aria-selected="false">Bình luận</button>
+                      <button class="nav-link" id="settingshome_tab" data-bs-toggle="pill" data-bs-target="#settingshome" type="button" role="tab" aria-controls="settingshome" aria-selected="false">Cài đặt trang chủ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    <div class="nav_Right">
+      <div class="container">
+        <div class="row">
+          <div class="header_Admin">
+            <div class="title_Header">
+              <p>Admin System</p>
+            </div>
+            <div class="dropdown_Admin">
+              <label class="popup">
+                <input type="checkbox">
+                <div class="burger" tabindex="0">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <nav class="popup-window">
+                  <legend>Actions</legend>
+                  <ul>
+                    <li>
+                      <button>
+                        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                          <circle r="4" cy="7" cx="9"></circle>
+                          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        <span>Colloborators</span>
+                      </button>
+                    </li>
+                    <li>
+                      <button>
+                        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                        <span>Magic Link</span>
+                      </button>
+                    </li>
+                    <hr>
+                    <li>
+                      <button>
+                        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                          <rect ry="2" rx="2" height="13" width="13" y="9" x="9"></rect>
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span>Clone</span>
+                      </button>
+                    </li>
+                    <li>
+                      <button>
+                        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                          <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+                        </svg>
+                        <span>Edit</span>
+                      </button>
+                    </li>
+                    <hr>
+                    <li>
+                      <button>
+                        <svg stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg">
+                          <line y2="18" x2="6" y1="6" x1="18"></line>
+                          <line y2="18" x2="18" y1="6" x1="6"></line>
+                        </svg>
+                        <span>Delete</span>
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </label>
+            </div>
+          </div>
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="settings" role="tabpanel" aria-labelledby="v-pills-home-tab">a</div>
+            <div class="tab-pane fade" id="news" role="tabpanel" aria-labelledby="settings_tab">
+              <div class="title_Table">
+                <p>Tin tức</p>
+              </div>
+              <div class="form_Table">
+                <table>
+                  <div class="head_Table">
+                    <div class="list_Cate">
+                      <p>Danh sách tin tức</p>
+                    </div>
+                    <div>
+                      <div class="search_Wrapper">
+                        <button class="icon"> 
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="25px" width="25px">
+                            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#fff" d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"></path>
+                            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#fff" d="M22 22L20 20"></path>
+                          </svg>
+                        </button>
+                        <input placeholder="search.." class="input_Search" name="text" type="text">
+                      </div>
+                      <div>
+                        <button type="button" class="button">
+                          <span class="button__text">Add Item</span>
+                          <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <thead>
+                    <tr class="">
+                      <th>Ngày đăng</th>
+                      <th>Tiêu đề</th>
+                      <th>Xem</th>
+                      <th>Sửa</th>
+                      <th>Xóa</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>24/12/2023</td>
+                      <td><a target="_blank" href="/quan-tay-ho-nhieu-nghe-sy-noi-tieng-nhat-ban-viet-nam-tham-gia-chuong-trinh-giao-luu-van-hoa-viet-nhat-heiwa-peace-tay-ho-nam-2023.html">Quận Tây Hồ: Nhiều nghệ sỹ nổi tiếng Nhật Bản, Việt Nam tham gia chương trình giao lưu văn hóa Việt - Nhật Heiwa - Peace - Tây Hồ năm 2023</a></td>
+                      <td>101</td>
+                      <td align="center" class="edit">
+                        <a href="javascript:void(0)">
+                          <button class="Btn">
+                            <p>Edit</p>
+                            <svg class="svg" viewBox="0 0 512 512">
+                              <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path></svg>
+                          </button>
+                        </a>
+                      </td>
+                      <td align="center" class="delete">
+                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="javascript:void(0)">
+                          <button class="button">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 14"
+                              class="svgIcon bin-top"
+                            >
+                              <g clip-path="url(#clip0_35_24)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 2.62734L19.9948 4.21304C19.8224 4.54309 19.4808 4.75 19.1085 4.75H4.92857C2.20246 4.75 0 6.87266 0 9.5C0 12.1273 2.20246 14.25 4.92857 14.25H64.0714C66.7975 14.25 69 12.1273 69 9.5C69 6.87266 66.7975 4.75 64.0714 4.75H49.8915C49.5192 4.75 49.1776 4.54309 49.0052 4.21305L48.1768 2.62734C47.3451 1.00938 45.6355 0 43.7719 0H25.2281C23.3645 0 21.6549 1.00938 20.8232 2.62734ZM64.0023 20.0648C64.0397 19.4882 63.5822 19 63.0044 19H5.99556C5.4178 19 4.96025 19.4882 4.99766 20.0648L8.19375 69.3203C8.44018 73.0758 11.6746 76 15.5712 76H53.4288C57.3254 76 60.5598 73.0758 60.8062 69.3203L64.0023 20.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_24">
+                                  <rect fill="white" height="14" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 57"
+                              class="svgIcon bin-bottom"
+                            >
+                              <g clip-path="url(#clip0_35_22)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 -16.3727L19.9948 -14.787C19.8224 -14.4569 19.4808 -14.25 19.1085 -14.25H4.92857C2.20246 -14.25 0 -12.1273 0 -9.5C0 -6.8727 2.20246 -4.75 4.92857 -4.75H64.0714C66.7975 -4.75 69 -6.8727 69 -9.5C69 -12.1273 66.7975 -14.25 64.0714 -14.25H49.8915C49.5192 -14.25 49.1776 -14.4569 49.0052 -14.787L48.1768 -16.3727C47.3451 -17.9906 45.6355 -19 43.7719 -19H25.2281C23.3645 -19 21.6549 -17.9906 20.8232 -16.3727ZM64.0023 1.0648C64.0397 0.4882 63.5822 0 63.0044 0H5.99556C5.4178 0 4.96025 0.4882 4.99766 1.0648L8.19375 50.3203C8.44018 54.0758 11.6746 57 15.5712 57H53.4288C57.3254 57 60.5598 54.0758 60.8062 50.3203L64.0023 1.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_22">
+                                  <rect fill="white" height="57" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </button>
+                          
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>24/12/2023</td>
+                      <td><a target="_blank" href="/quan-tay-ho-nhieu-nghe-sy-noi-tieng-nhat-ban-viet-nam-tham-gia-chuong-trinh-giao-luu-van-hoa-viet-nhat-heiwa-peace-tay-ho-nam-2023.html">Quận Tây Hồ: Nhiều nghệ sỹ nổi tiếng Nhật Bản, Việt Nam tham gia chương trình giao lưu văn hóa Việt - Nhật Heiwa - Peace - Tây Hồ năm 2023</a></td>
+                      <td>101</td>
+                      <td align="center" class="edit">
+                        <a href="javascript:void(0)">
+                          <button class="Btn">
+                            <p>Edit</p>
+                            <svg class="svg" viewBox="0 0 512 512">
+                              <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path></svg>
+                          </button>
+                        </a>
+                      </td>
+                      <td align="center" class="delete">
+                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="javascript:void(0)">
+                          <button class="button">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 14"
+                              class="svgIcon bin-top"
+                            >
+                              <g clip-path="url(#clip0_35_24)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 2.62734L19.9948 4.21304C19.8224 4.54309 19.4808 4.75 19.1085 4.75H4.92857C2.20246 4.75 0 6.87266 0 9.5C0 12.1273 2.20246 14.25 4.92857 14.25H64.0714C66.7975 14.25 69 12.1273 69 9.5C69 6.87266 66.7975 4.75 64.0714 4.75H49.8915C49.5192 4.75 49.1776 4.54309 49.0052 4.21305L48.1768 2.62734C47.3451 1.00938 45.6355 0 43.7719 0H25.2281C23.3645 0 21.6549 1.00938 20.8232 2.62734ZM64.0023 20.0648C64.0397 19.4882 63.5822 19 63.0044 19H5.99556C5.4178 19 4.96025 19.4882 4.99766 20.0648L8.19375 69.3203C8.44018 73.0758 11.6746 76 15.5712 76H53.4288C57.3254 76 60.5598 73.0758 60.8062 69.3203L64.0023 20.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_24">
+                                  <rect fill="white" height="14" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 57"
+                              class="svgIcon bin-bottom"
+                            >
+                              <g clip-path="url(#clip0_35_22)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 -16.3727L19.9948 -14.787C19.8224 -14.4569 19.4808 -14.25 19.1085 -14.25H4.92857C2.20246 -14.25 0 -12.1273 0 -9.5C0 -6.8727 2.20246 -4.75 4.92857 -4.75H64.0714C66.7975 -4.75 69 -6.8727 69 -9.5C69 -12.1273 66.7975 -14.25 64.0714 -14.25H49.8915C49.5192 -14.25 49.1776 -14.4569 49.0052 -14.787L48.1768 -16.3727C47.3451 -17.9906 45.6355 -19 43.7719 -19H25.2281C23.3645 -19 21.6549 -17.9906 20.8232 -16.3727ZM64.0023 1.0648C64.0397 0.4882 63.5822 0 63.0044 0H5.99556C5.4178 0 4.96025 0.4882 4.99766 1.0648L8.19375 50.3203C8.44018 54.0758 11.6746 57 15.5712 57H53.4288C57.3254 57 60.5598 54.0758 60.8062 50.3203L64.0023 1.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_22">
+                                  <rect fill="white" height="57" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </button>
+                          
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>24/12/2023</td>
+                      <td><a target="_blank" href="/quan-tay-ho-nhieu-nghe-sy-noi-tieng-nhat-ban-viet-nam-tham-gia-chuong-trinh-giao-luu-van-hoa-viet-nhat-heiwa-peace-tay-ho-nam-2023.html">Quận Tây Hồ: Nhiều nghệ sỹ nổi tiếng Nhật Bản, Việt Nam tham gia chương trình giao lưu văn hóa Việt - Nhật Heiwa - Peace - Tây Hồ năm 2023</a></td>
+                      <td>101</td>
+                      <td align="center" class="edit">
+                        <a href="javascript:void(0)">
+                          <button class="Btn">
+                            <p>Edit</p>
+                            <svg class="svg" viewBox="0 0 512 512">
+                              <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path></svg>
+                          </button>
+                        </a>
+                      </td>
+                      <td align="center" class="delete">
+                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="javascript:void(0)">
+                          <button class="button">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 14"
+                              class="svgIcon bin-top"
+                            >
+                              <g clip-path="url(#clip0_35_24)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 2.62734L19.9948 4.21304C19.8224 4.54309 19.4808 4.75 19.1085 4.75H4.92857C2.20246 4.75 0 6.87266 0 9.5C0 12.1273 2.20246 14.25 4.92857 14.25H64.0714C66.7975 14.25 69 12.1273 69 9.5C69 6.87266 66.7975 4.75 64.0714 4.75H49.8915C49.5192 4.75 49.1776 4.54309 49.0052 4.21305L48.1768 2.62734C47.3451 1.00938 45.6355 0 43.7719 0H25.2281C23.3645 0 21.6549 1.00938 20.8232 2.62734ZM64.0023 20.0648C64.0397 19.4882 63.5822 19 63.0044 19H5.99556C5.4178 19 4.96025 19.4882 4.99766 20.0648L8.19375 69.3203C8.44018 73.0758 11.6746 76 15.5712 76H53.4288C57.3254 76 60.5598 73.0758 60.8062 69.3203L64.0023 20.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_24">
+                                  <rect fill="white" height="14" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 57"
+                              class="svgIcon bin-bottom"
+                            >
+                              <g clip-path="url(#clip0_35_22)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 -16.3727L19.9948 -14.787C19.8224 -14.4569 19.4808 -14.25 19.1085 -14.25H4.92857C2.20246 -14.25 0 -12.1273 0 -9.5C0 -6.8727 2.20246 -4.75 4.92857 -4.75H64.0714C66.7975 -4.75 69 -6.8727 69 -9.5C69 -12.1273 66.7975 -14.25 64.0714 -14.25H49.8915C49.5192 -14.25 49.1776 -14.4569 49.0052 -14.787L48.1768 -16.3727C47.3451 -17.9906 45.6355 -19 43.7719 -19H25.2281C23.3645 -19 21.6549 -17.9906 20.8232 -16.3727ZM64.0023 1.0648C64.0397 0.4882 63.5822 0 63.0044 0H5.99556C5.4178 0 4.96025 0.4882 4.99766 1.0648L8.19375 50.3203C8.44018 54.0758 11.6746 57 15.5712 57H53.4288C57.3254 57 60.5598 54.0758 60.8062 50.3203L64.0023 1.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_22">
+                                  <rect fill="white" height="57" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </button>
+                          
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>24/12/2023</td>
+                      <td><a target="_blank" href="/quan-tay-ho-nhieu-nghe-sy-noi-tieng-nhat-ban-viet-nam-tham-gia-chuong-trinh-giao-luu-van-hoa-viet-nhat-heiwa-peace-tay-ho-nam-2023.html">Quận Tây Hồ: Nhiều nghệ sỹ nổi tiếng Nhật Bản, Việt Nam tham gia chương trình giao lưu văn hóa Việt - Nhật Heiwa - Peace - Tây Hồ năm 2023</a></td>
+                      <td>101</td>
+                      <td align="center" class="edit">
+                        <a href="javascript:void(0)">
+                          <button class="Btn">
+                            <p>Edit</p>
+                            <svg class="svg" viewBox="0 0 512 512">
+                              <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path></svg>
+                          </button>
+                        </a>
+                      </td>
+                      <td align="center" class="delete">
+                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="javascript:void(0)">
+                          <button class="button">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 14"
+                              class="svgIcon bin-top"
+                            >
+                              <g clip-path="url(#clip0_35_24)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 2.62734L19.9948 4.21304C19.8224 4.54309 19.4808 4.75 19.1085 4.75H4.92857C2.20246 4.75 0 6.87266 0 9.5C0 12.1273 2.20246 14.25 4.92857 14.25H64.0714C66.7975 14.25 69 12.1273 69 9.5C69 6.87266 66.7975 4.75 64.0714 4.75H49.8915C49.5192 4.75 49.1776 4.54309 49.0052 4.21305L48.1768 2.62734C47.3451 1.00938 45.6355 0 43.7719 0H25.2281C23.3645 0 21.6549 1.00938 20.8232 2.62734ZM64.0023 20.0648C64.0397 19.4882 63.5822 19 63.0044 19H5.99556C5.4178 19 4.96025 19.4882 4.99766 20.0648L8.19375 69.3203C8.44018 73.0758 11.6746 76 15.5712 76H53.4288C57.3254 76 60.5598 73.0758 60.8062 69.3203L64.0023 20.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_24">
+                                  <rect fill="white" height="14" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 57"
+                              class="svgIcon bin-bottom"
+                            >
+                              <g clip-path="url(#clip0_35_22)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 -16.3727L19.9948 -14.787C19.8224 -14.4569 19.4808 -14.25 19.1085 -14.25H4.92857C2.20246 -14.25 0 -12.1273 0 -9.5C0 -6.8727 2.20246 -4.75 4.92857 -4.75H64.0714C66.7975 -4.75 69 -6.8727 69 -9.5C69 -12.1273 66.7975 -14.25 64.0714 -14.25H49.8915C49.5192 -14.25 49.1776 -14.4569 49.0052 -14.787L48.1768 -16.3727C47.3451 -17.9906 45.6355 -19 43.7719 -19H25.2281C23.3645 -19 21.6549 -17.9906 20.8232 -16.3727ZM64.0023 1.0648C64.0397 0.4882 63.5822 0 63.0044 0H5.99556C5.4178 0 4.96025 0.4882 4.99766 1.0648L8.19375 50.3203C8.44018 54.0758 11.6746 57 15.5712 57H53.4288C57.3254 57 60.5598 54.0758 60.8062 50.3203L64.0023 1.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_22">
+                                  <rect fill="white" height="57" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </button>
+                          
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>24/12/2023</td>
+                      <td><a target="_blank" href="/quan-tay-ho-nhieu-nghe-sy-noi-tieng-nhat-ban-viet-nam-tham-gia-chuong-trinh-giao-luu-van-hoa-viet-nhat-heiwa-peace-tay-ho-nam-2023.html">Quận Tây Hồ: Nhiều nghệ sỹ nổi tiếng Nhật Bản, Việt Nam tham gia chương trình giao lưu văn hóa Việt - Nhật Heiwa - Peace - Tây Hồ năm 2023</a></td>
+                      <td>101</td>
+                      <td align="center" class="edit">
+                        <a href="javascript:void(0)">
+                          <button class="Btn">
+                            <p>Edit</p>
+                            <svg class="svg" viewBox="0 0 512 512">
+                              <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path></svg>
+                          </button>
+                        </a>
+                      </td>
+                      <td align="center" class="delete">
+                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="javascript:void(0)">
+                          <button class="button">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 14"
+                              class="svgIcon bin-top"
+                            >
+                              <g clip-path="url(#clip0_35_24)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 2.62734L19.9948 4.21304C19.8224 4.54309 19.4808 4.75 19.1085 4.75H4.92857C2.20246 4.75 0 6.87266 0 9.5C0 12.1273 2.20246 14.25 4.92857 14.25H64.0714C66.7975 14.25 69 12.1273 69 9.5C69 6.87266 66.7975 4.75 64.0714 4.75H49.8915C49.5192 4.75 49.1776 4.54309 49.0052 4.21305L48.1768 2.62734C47.3451 1.00938 45.6355 0 43.7719 0H25.2281C23.3645 0 21.6549 1.00938 20.8232 2.62734ZM64.0023 20.0648C64.0397 19.4882 63.5822 19 63.0044 19H5.99556C5.4178 19 4.96025 19.4882 4.99766 20.0648L8.19375 69.3203C8.44018 73.0758 11.6746 76 15.5712 76H53.4288C57.3254 76 60.5598 73.0758 60.8062 69.3203L64.0023 20.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_24">
+                                  <rect fill="white" height="14" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 57"
+                              class="svgIcon bin-bottom"
+                            >
+                              <g clip-path="url(#clip0_35_22)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 -16.3727L19.9948 -14.787C19.8224 -14.4569 19.4808 -14.25 19.1085 -14.25H4.92857C2.20246 -14.25 0 -12.1273 0 -9.5C0 -6.8727 2.20246 -4.75 4.92857 -4.75H64.0714C66.7975 -4.75 69 -6.8727 69 -9.5C69 -12.1273 66.7975 -14.25 64.0714 -14.25H49.8915C49.5192 -14.25 49.1776 -14.4569 49.0052 -14.787L48.1768 -16.3727C47.3451 -17.9906 45.6355 -19 43.7719 -19H25.2281C23.3645 -19 21.6549 -17.9906 20.8232 -16.3727ZM64.0023 1.0648C64.0397 0.4882 63.5822 0 63.0044 0H5.99556C5.4178 0 4.96025 0.4882 4.99766 1.0648L8.19375 50.3203C8.44018 54.0758 11.6746 57 15.5712 57H53.4288C57.3254 57 60.5598 54.0758 60.8062 50.3203L64.0023 1.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_22">
+                                  <rect fill="white" height="57" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </button>
+                          
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>24/12/2023</td>
+                      <td><a target="_blank" href="/quan-tay-ho-nhieu-nghe-sy-noi-tieng-nhat-ban-viet-nam-tham-gia-chuong-trinh-giao-luu-van-hoa-viet-nhat-heiwa-peace-tay-ho-nam-2023.html">Quận Tây Hồ: Nhiều nghệ sỹ nổi tiếng Nhật Bản, Việt Nam tham gia chương trình giao lưu văn hóa Việt - Nhật Heiwa - Peace - Tây Hồ năm 2023</a></td>
+                      <td>101</td>
+                      <td align="center" class="edit">
+                        <a href="javascript:void(0)">
+                          <button class="Btn">
+                            <p>Edit</p>
+                            <svg class="svg" viewBox="0 0 512 512">
+                              <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path></svg>
+                          </button>
+                        </a>
+                      </td>
+                      <td align="center" class="delete">
+                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="javascript:void(0)">
+                          <button class="button">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 14"
+                              class="svgIcon bin-top"
+                            >
+                              <g clip-path="url(#clip0_35_24)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 2.62734L19.9948 4.21304C19.8224 4.54309 19.4808 4.75 19.1085 4.75H4.92857C2.20246 4.75 0 6.87266 0 9.5C0 12.1273 2.20246 14.25 4.92857 14.25H64.0714C66.7975 14.25 69 12.1273 69 9.5C69 6.87266 66.7975 4.75 64.0714 4.75H49.8915C49.5192 4.75 49.1776 4.54309 49.0052 4.21305L48.1768 2.62734C47.3451 1.00938 45.6355 0 43.7719 0H25.2281C23.3645 0 21.6549 1.00938 20.8232 2.62734ZM64.0023 20.0648C64.0397 19.4882 63.5822 19 63.0044 19H5.99556C5.4178 19 4.96025 19.4882 4.99766 20.0648L8.19375 69.3203C8.44018 73.0758 11.6746 76 15.5712 76H53.4288C57.3254 76 60.5598 73.0758 60.8062 69.3203L64.0023 20.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_24">
+                                  <rect fill="white" height="14" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 57"
+                              class="svgIcon bin-bottom"
+                            >
+                              <g clip-path="url(#clip0_35_22)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 -16.3727L19.9948 -14.787C19.8224 -14.4569 19.4808 -14.25 19.1085 -14.25H4.92857C2.20246 -14.25 0 -12.1273 0 -9.5C0 -6.8727 2.20246 -4.75 4.92857 -4.75H64.0714C66.7975 -4.75 69 -6.8727 69 -9.5C69 -12.1273 66.7975 -14.25 64.0714 -14.25H49.8915C49.5192 -14.25 49.1776 -14.4569 49.0052 -14.787L48.1768 -16.3727C47.3451 -17.9906 45.6355 -19 43.7719 -19H25.2281C23.3645 -19 21.6549 -17.9906 20.8232 -16.3727ZM64.0023 1.0648C64.0397 0.4882 63.5822 0 63.0044 0H5.99556C5.4178 0 4.96025 0.4882 4.99766 1.0648L8.19375 50.3203C8.44018 54.0758 11.6746 57 15.5712 57H53.4288C57.3254 57 60.5598 54.0758 60.8062 50.3203L64.0023 1.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_22">
+                                  <rect fill="white" height="57" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </button>
+                          
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>24/12/2023</td>
+                      <td><a target="_blank" href="/quan-tay-ho-nhieu-nghe-sy-noi-tieng-nhat-ban-viet-nam-tham-gia-chuong-trinh-giao-luu-van-hoa-viet-nhat-heiwa-peace-tay-ho-nam-2023.html">Quận Tây Hồ: Nhiều nghệ sỹ nổi tiếng Nhật Bản, Việt Nam tham gia chương trình giao lưu văn hóa Việt - Nhật Heiwa - Peace - Tây Hồ năm 2023</a></td>
+                      <td>101</td>
+                      <td align="center" class="edit">
+                        <a href="javascript:void(0)">
+                          <button class="Btn">
+                            <p>Edit</p>
+                            <svg class="svg" viewBox="0 0 512 512">
+                              <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path></svg>
+                          </button>
+                        </a>
+                      </td>
+                      <td align="center" class="delete">
+                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="javascript:void(0)">
+                          <button class="button">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 14"
+                              class="svgIcon bin-top"
+                            >
+                              <g clip-path="url(#clip0_35_24)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 2.62734L19.9948 4.21304C19.8224 4.54309 19.4808 4.75 19.1085 4.75H4.92857C2.20246 4.75 0 6.87266 0 9.5C0 12.1273 2.20246 14.25 4.92857 14.25H64.0714C66.7975 14.25 69 12.1273 69 9.5C69 6.87266 66.7975 4.75 64.0714 4.75H49.8915C49.5192 4.75 49.1776 4.54309 49.0052 4.21305L48.1768 2.62734C47.3451 1.00938 45.6355 0 43.7719 0H25.2281C23.3645 0 21.6549 1.00938 20.8232 2.62734ZM64.0023 20.0648C64.0397 19.4882 63.5822 19 63.0044 19H5.99556C5.4178 19 4.96025 19.4882 4.99766 20.0648L8.19375 69.3203C8.44018 73.0758 11.6746 76 15.5712 76H53.4288C57.3254 76 60.5598 73.0758 60.8062 69.3203L64.0023 20.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_24">
+                                  <rect fill="white" height="14" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 57"
+                              class="svgIcon bin-bottom"
+                            >
+                              <g clip-path="url(#clip0_35_22)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 -16.3727L19.9948 -14.787C19.8224 -14.4569 19.4808 -14.25 19.1085 -14.25H4.92857C2.20246 -14.25 0 -12.1273 0 -9.5C0 -6.8727 2.20246 -4.75 4.92857 -4.75H64.0714C66.7975 -4.75 69 -6.8727 69 -9.5C69 -12.1273 66.7975 -14.25 64.0714 -14.25H49.8915C49.5192 -14.25 49.1776 -14.4569 49.0052 -14.787L48.1768 -16.3727C47.3451 -17.9906 45.6355 -19 43.7719 -19H25.2281C23.3645 -19 21.6549 -17.9906 20.8232 -16.3727ZM64.0023 1.0648C64.0397 0.4882 63.5822 0 63.0044 0H5.99556C5.4178 0 4.96025 0.4882 4.99766 1.0648L8.19375 50.3203C8.44018 54.0758 11.6746 57 15.5712 57H53.4288C57.3254 57 60.5598 54.0758 60.8062 50.3203L64.0023 1.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_22">
+                                  <rect fill="white" height="57" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </button>
+                          
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>24/12/2023</td>
+                      <td><a target="_blank" href="/quan-tay-ho-nhieu-nghe-sy-noi-tieng-nhat-ban-viet-nam-tham-gia-chuong-trinh-giao-luu-van-hoa-viet-nhat-heiwa-peace-tay-ho-nam-2023.html">Quận Tây Hồ: Nhiều nghệ sỹ nổi tiếng Nhật Bản, Việt Nam tham gia chương trình giao lưu văn hóa Việt - Nhật Heiwa - Peace - Tây Hồ năm 2023</a></td>
+                      <td>101</td>
+                      <td align="center" class="edit">
+                        <a href="javascript:void(0)">
+                          <button class="Btn">
+                            <p>Edit</p>
+                            <svg class="svg" viewBox="0 0 512 512">
+                              <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path></svg>
+                          </button>
+                        </a>
+                      </td>
+                      <td align="center" class="delete">
+                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="javascript:void(0)">
+                          <button class="button">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 14"
+                              class="svgIcon bin-top"
+                            >
+                              <g clip-path="url(#clip0_35_24)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 2.62734L19.9948 4.21304C19.8224 4.54309 19.4808 4.75 19.1085 4.75H4.92857C2.20246 4.75 0 6.87266 0 9.5C0 12.1273 2.20246 14.25 4.92857 14.25H64.0714C66.7975 14.25 69 12.1273 69 9.5C69 6.87266 66.7975 4.75 64.0714 4.75H49.8915C49.5192 4.75 49.1776 4.54309 49.0052 4.21305L48.1768 2.62734C47.3451 1.00938 45.6355 0 43.7719 0H25.2281C23.3645 0 21.6549 1.00938 20.8232 2.62734ZM64.0023 20.0648C64.0397 19.4882 63.5822 19 63.0044 19H5.99556C5.4178 19 4.96025 19.4882 4.99766 20.0648L8.19375 69.3203C8.44018 73.0758 11.6746 76 15.5712 76H53.4288C57.3254 76 60.5598 73.0758 60.8062 69.3203L64.0023 20.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_24">
+                                  <rect fill="white" height="14" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 57"
+                              class="svgIcon bin-bottom"
+                            >
+                              <g clip-path="url(#clip0_35_22)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 -16.3727L19.9948 -14.787C19.8224 -14.4569 19.4808 -14.25 19.1085 -14.25H4.92857C2.20246 -14.25 0 -12.1273 0 -9.5C0 -6.8727 2.20246 -4.75 4.92857 -4.75H64.0714C66.7975 -4.75 69 -6.8727 69 -9.5C69 -12.1273 66.7975 -14.25 64.0714 -14.25H49.8915C49.5192 -14.25 49.1776 -14.4569 49.0052 -14.787L48.1768 -16.3727C47.3451 -17.9906 45.6355 -19 43.7719 -19H25.2281C23.3645 -19 21.6549 -17.9906 20.8232 -16.3727ZM64.0023 1.0648C64.0397 0.4882 63.5822 0 63.0044 0H5.99556C5.4178 0 4.96025 0.4882 4.99766 1.0648L8.19375 50.3203C8.44018 54.0758 11.6746 57 15.5712 57H53.4288C57.3254 57 60.5598 54.0758 60.8062 50.3203L64.0023 1.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_22">
+                                  <rect fill="white" height="57" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </button>
+                          
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>24/12/2023</td>
+                      <td><a target="_blank" href="/quan-tay-ho-nhieu-nghe-sy-noi-tieng-nhat-ban-viet-nam-tham-gia-chuong-trinh-giao-luu-van-hoa-viet-nhat-heiwa-peace-tay-ho-nam-2023.html">Quận Tây Hồ: Nhiều nghệ sỹ nổi tiếng Nhật Bản, Việt Nam tham gia chương trình giao lưu văn hóa Việt - Nhật Heiwa - Peace - Tây Hồ năm 2023</a></td>
+                      <td>101</td>
+                      <td align="center" class="edit">
+                        <a href="javascript:void(0)">
+                          <button class="Btn">
+                            <p>Edit</p>
+                            <svg class="svg" viewBox="0 0 512 512">
+                              <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path></svg>
+                          </button>
+                        </a>
+                      </td>
+                      <td align="center" class="delete">
+                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="javascript:void(0)">
+                          <button class="button">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 14"
+                              class="svgIcon bin-top"
+                            >
+                              <g clip-path="url(#clip0_35_24)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 2.62734L19.9948 4.21304C19.8224 4.54309 19.4808 4.75 19.1085 4.75H4.92857C2.20246 4.75 0 6.87266 0 9.5C0 12.1273 2.20246 14.25 4.92857 14.25H64.0714C66.7975 14.25 69 12.1273 69 9.5C69 6.87266 66.7975 4.75 64.0714 4.75H49.8915C49.5192 4.75 49.1776 4.54309 49.0052 4.21305L48.1768 2.62734C47.3451 1.00938 45.6355 0 43.7719 0H25.2281C23.3645 0 21.6549 1.00938 20.8232 2.62734ZM64.0023 20.0648C64.0397 19.4882 63.5822 19 63.0044 19H5.99556C5.4178 19 4.96025 19.4882 4.99766 20.0648L8.19375 69.3203C8.44018 73.0758 11.6746 76 15.5712 76H53.4288C57.3254 76 60.5598 73.0758 60.8062 69.3203L64.0023 20.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_24">
+                                  <rect fill="white" height="14" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 57"
+                              class="svgIcon bin-bottom"
+                            >
+                              <g clip-path="url(#clip0_35_22)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 -16.3727L19.9948 -14.787C19.8224 -14.4569 19.4808 -14.25 19.1085 -14.25H4.92857C2.20246 -14.25 0 -12.1273 0 -9.5C0 -6.8727 2.20246 -4.75 4.92857 -4.75H64.0714C66.7975 -4.75 69 -6.8727 69 -9.5C69 -12.1273 66.7975 -14.25 64.0714 -14.25H49.8915C49.5192 -14.25 49.1776 -14.4569 49.0052 -14.787L48.1768 -16.3727C47.3451 -17.9906 45.6355 -19 43.7719 -19H25.2281C23.3645 -19 21.6549 -17.9906 20.8232 -16.3727ZM64.0023 1.0648C64.0397 0.4882 63.5822 0 63.0044 0H5.99556C5.4178 0 4.96025 0.4882 4.99766 1.0648L8.19375 50.3203C8.44018 54.0758 11.6746 57 15.5712 57H53.4288C57.3254 57 60.5598 54.0758 60.8062 50.3203L64.0023 1.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_22">
+                                  <rect fill="white" height="57" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </button>
+                          
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>24/12/2023</td>
+                      <td><a target="_blank" href="/quan-tay-ho-nhieu-nghe-sy-noi-tieng-nhat-ban-viet-nam-tham-gia-chuong-trinh-giao-luu-van-hoa-viet-nhat-heiwa-peace-tay-ho-nam-2023.html">Quận Tây Hồ: Nhiều nghệ sỹ nổi tiếng Nhật Bản, Việt Nam tham gia chương trình giao lưu văn hóa Việt - Nhật Heiwa - Peace - Tây Hồ năm 2023</a></td>
+                      <td>101</td>
+                      <td align="center" class="edit">
+                        <a href="javascript:void(0)">
+                          <button class="Btn">
+                            <p>Edit</p>
+                            <svg class="svg" viewBox="0 0 512 512">
+                              <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path></svg>
+                          </button>
+                        </a>
+                      </td>
+                      <td align="center" class="delete">
+                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa không?');" href="javascript:void(0)">
+                          <button class="button">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 14"
+                              class="svgIcon bin-top"
+                            >
+                              <g clip-path="url(#clip0_35_24)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 2.62734L19.9948 4.21304C19.8224 4.54309 19.4808 4.75 19.1085 4.75H4.92857C2.20246 4.75 0 6.87266 0 9.5C0 12.1273 2.20246 14.25 4.92857 14.25H64.0714C66.7975 14.25 69 12.1273 69 9.5C69 6.87266 66.7975 4.75 64.0714 4.75H49.8915C49.5192 4.75 49.1776 4.54309 49.0052 4.21305L48.1768 2.62734C47.3451 1.00938 45.6355 0 43.7719 0H25.2281C23.3645 0 21.6549 1.00938 20.8232 2.62734ZM64.0023 20.0648C64.0397 19.4882 63.5822 19 63.0044 19H5.99556C5.4178 19 4.96025 19.4882 4.99766 20.0648L8.19375 69.3203C8.44018 73.0758 11.6746 76 15.5712 76H53.4288C57.3254 76 60.5598 73.0758 60.8062 69.3203L64.0023 20.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_24">
+                                  <rect fill="white" height="14" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 69 57"
+                              class="svgIcon bin-bottom"
+                            >
+                              <g clip-path="url(#clip0_35_22)">
+                                <path
+                                  fill="black"
+                                  d="M20.8232 -16.3727L19.9948 -14.787C19.8224 -14.4569 19.4808 -14.25 19.1085 -14.25H4.92857C2.20246 -14.25 0 -12.1273 0 -9.5C0 -6.8727 2.20246 -4.75 4.92857 -4.75H64.0714C66.7975 -4.75 69 -6.8727 69 -9.5C69 -12.1273 66.7975 -14.25 64.0714 -14.25H49.8915C49.5192 -14.25 49.1776 -14.4569 49.0052 -14.787L48.1768 -16.3727C47.3451 -17.9906 45.6355 -19 43.7719 -19H25.2281C23.3645 -19 21.6549 -17.9906 20.8232 -16.3727ZM64.0023 1.0648C64.0397 0.4882 63.5822 0 63.0044 0H5.99556C5.4178 0 4.96025 0.4882 4.99766 1.0648L8.19375 50.3203C8.44018 54.0758 11.6746 57 15.5712 57H53.4288C57.3254 57 60.5598 54.0758 60.8062 50.3203L64.0023 1.0648Z"
+                                ></path>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_35_22">
+                                  <rect fill="white" height="57" width="69"></rect>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </button>
+                          
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="news_tab">c</div>
+            <div class="tab-pane fade" id="albums" role="tabpanel" aria-labelledby="albumsimg_tab">d</div>
+            <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products_tab">e</div>
+            <div class="tab-pane fade" id="bids" role="tabpanel" aria-labelledby="bids_tab">f</div>
+            <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users_tab">g</div>
+            <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments_tab">h</div>
+            <div class="tab-pane fade" id="settingshome" role="tabpanel" aria-labelledby="settingshome_tab">i</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</body>

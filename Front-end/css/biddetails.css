@@ -1,0 +1,73 @@
+  /* bidDetailsuser */
+
+  .bid_Detailsuser  .inputGroup {
+    /* font-family: 'Segoe UI', sans-serif; */
+    margin: 1em 0 1em 0;
+    max-width: 100%;
+    position: relative;
+  }
+  
+  .bid_Detailsuser .inputGroup input {
+    font-size: 100%;
+    padding: 16px 10px 10px 15px;
+    outline: none;
+    border: 2px solid rgb(200, 200, 200);
+    background-color: transparent;
+    border-radius: 20px;
+    width: 100%;
+}
+  
+  .bid_Detailsuser .inputGroup label {
+    font-size: 100%;
+    position: absolute;
+    left: 0;
+    top: 5px;
+    padding: 10px 0 0 14px;
+    margin-left: 0.5em;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    color: rgb(100, 100, 100);
+}
+  
+.bid_Detailsuser .inputGroup :is(input:focus, input:valid)~label {
+  transform: translateY(-50%) scale(.9);
+  margin: 0em;
+  margin-left: 1.3em;
+  padding: 2px 10px 0px 10px;
+  background-color: #f4f2f0 !important;
+}
+
+.bid_Detailsuser  .inputGroup :is(input:focus, input:valid) {
+    border-color: rgb(150, 150, 200);
+  }
+
+ .bid_Detailsuser .btn_Signinbid .pushable {
+    width: 100%;
+    margin-top: 16px !important;
+}
+
+.bid_Detailsuser .btn_Signinbid {
+  width: 100%;
+}
+
+.bid_Detailsuser .box_Pricebid {
+  padding: 60px 20px 20px 20px;
+  width: 40%;
+  background-color: #fff;
+  border-radius: 20px;
+  margin: 30px auto;
+  text-align: center;
+  font-size: 50px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+}
+
+.bid_Detailsuser .box_Comment {
+  overflow: hidden auto;
+    height: 190px;
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 10px;
+  background-color: #fff;
+}
