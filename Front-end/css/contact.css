@@ -1,0 +1,111 @@
+.bg_Contact {
+    background-image: url(../img/contact.jpg);
+    background-size: cover;
+    height: 350px;
+    position: relative;
+}
+
+.contact_h1 {
+    position: absolute;
+    top: 35%;
+    /* color: #ccc; */
+    font-size: 70px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.contact .bread_Crumb ul {
+    display: flex;
+    position: absolute;
+    font-size: 24px;
+    font-weight: 500;
+    top: 55%;
+    right: 45%;
+}
+
+.contact .bread_Crumb ul li {
+    margin: 5px;
+    text-align: center;
+}
+
+.contact {
+    padding: 0px 0 100px 0;
+}
+.contact .title_Contact {
+    text-align: center;
+    margin: 100px 50px 30px 50px;
+}
+
+.contact .title_Contact .line_1 {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.contact .title_Contact .line_2 {
+    font-size: 18px;
+    font-weight: 400;
+    width: 60%;
+    margin: auto;
+}
+
+.contact .info_Us {
+    margin-top: 70px;
+}
+
+.contact .info_Contact .box_Text {
+    display: flex;
+}
+
+.contact .info_Contact {
+    display: flex;
+}
+
+.contact .info_Contact .box_Text p.title {
+    font-size: 20px !important;
+    font-weight: 700;
+}
+
+.contact .info_Contact {
+    margin: 40px;
+}
+
+.contact .info_Contact i {
+    margin-top: 2px;
+}
+
+.contact .info_Contact .box_Text p {
+    margin: 0 5px;
+    font-size: 18px;
+}
+
+.contact_Form .wave-group {
+    position: relative;
+    width: 100%;
+    margin: 40px auto;
+}
+
+.contact_Form .wave-group .bar {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+/* @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 #0B6E4F90;
+      rotate: 20deg;
+    }
+  
+    50% {
+      rotate: -20deg;
+    }
+  
+    75% {
+      box-shadow: 0 0 0 10px #0B6E4F60;
+    }
+
+    100% {
+        box-shadow: 0 0 0 13px #0B6E4F30;
+        rotate: 0;
+      }
+    } */

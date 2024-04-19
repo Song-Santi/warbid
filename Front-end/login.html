@@ -37,10 +37,30 @@
         }); 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <style>
+      label {
+          display: block;
+          margin-bottom: 5px;
+      }
+      input.error {
+          border: 1px solid red;
+      }
+      .error {
+          color: red;
+      }
+      .ui-dialog-titlebar-close {
+          right: 5px;
+          top: 5px;
+      }
+    </style>
 </head>
 
 <div id="header"></div>
@@ -55,11 +75,11 @@
                 <div class="title_Exboxform">
                     <p>Welcome to our community !</p>
                 </div>
-                <form action="">
+                <form id="loginForm" method="POST">
                     <div class="wave-group">
-                        <input required="" type="text" class="input">
+                        <input type="text" id="username" name="username" class="input">
                         <span class="bar"></span>
-                        <label class="label">                        
+                        <label class="label" for="username">                        
                           <span class="label-char" style="--index: 0"><i class="fa-solid fa-user"></i></span>
                           <span class="label-char" style="--index: 1">E</span>
                           <span class="label-char" style="--index: 2">m</span>
@@ -67,11 +87,12 @@
                           <span class="label-char" style="--index: 4">i</span>
                           <span class="label-char" style="--index: 5">l</span>
                         </label>
+                        <span id="username-error" class="error"></span>
                     </div>
                     <div class="wave-group">
-                        <input required="" type="password" class="input">
+                        <input type="password" id="password" name="password" class="input">
                         <span class="bar"></span>
-                        <label class="label">
+                        <label class="label" for="password">
                           <span class="label-char" style="--index: 0"><i class="fa-solid fa-lock"></i></span>
                           <span class="label-char" style="--index: 1">P</span>
                           <span class="label-char" style="--index: 2">a</span>
@@ -82,9 +103,10 @@
                           <span class="label-char" style="--index: 4">r</span>
                           <span class="label-char" style="--index: 4">d</span>
                         </label>
+                        <span id="password-error" class="error"></span> <br/>
                     </div>
                     <div class="btn_Login">
-                        <button class="pushable">
+                        <button class="pushable" type="submit">
                             <span class="shadow"></span>
                             <span class="edge"></span>
                             <span class="front">
@@ -116,7 +138,7 @@
                     <div class="forgotPassword">
                       <div class="view_Allproduct">
                         <button class="cta">
-                            <span class="hover-underline-animation"> Lost your password? </span>
+                            <span class="hover-underline-animation">Lost your password?</span>
                             <svg
                               id="arrow-horizontal"
                               xmlns="http://www.w3.org/2000/svg"
@@ -135,10 +157,140 @@
                       </div>
                     </div>
                 </form>
+                <div id="dialog-success" title="Login successful!" style="display: none;">
+                  <p>Congratulations! Logged in successfully.</p>
+              </div>
             </div>
         </div>
     </section>
 </body>
+
+<script>
+  $(document).ready(function() {
+      var dialogSuccess = $("#dialog-success");
+
+  // Thiết lập dialog
+  dialogSuccess.dialog({
+      autoOpen: false,
+      modal: true,
+      closeOnEscape: false,
+      buttons: {},
+      close: function() {
+          $(this).dialog("destroy");
+      },
+      position: {
+          my: "top",
+          at: "top",
+          of: window
+      }
+  });
+  dialogSuccess.dialog("widget").css({
+      "padding": "20px 10px 10px 10px",
+      "border": "2px solid #ccc"
+  });
+  dialogSuccess.dialog("widget").css("background", "lightgreen");
+  // Áp dụng validation cho biểu mẫu với các quy tắc cần thiết
+  $("#loginForm").validate({
+      rules: {
+          username: {
+              required: true,
+              pattern: /^[^<>&\/$^*!]{3,50}$/
+          },
+          password: {
+          required: true,
+          pattern: /^.{6,50}$/
+          }
+      },
+      messages: {
+          username: {
+              required: "Username is required!",
+              pattern:"Username invalid!"
+          },
+          password: {
+          required: "Password is required!",
+          pattern:"Password invalid!"
+          }
+      },
+      errorPlacement: function(error, element) {
+          // Hiển thị thông báo lỗi dưới mỗi trường nhập
+          error.appendTo("#" + element.attr("id") + "-error");
+      },
+      highlight: function(element, errorClass) {
+          // Áp dụng CSS khi có lỗi
+          $(element).addClass(errorClass);
+      },
+      unhighlight: function(element, errorClass) {
+          // Loại bỏ CSS khi không còn lỗi
+          $(element).removeClass(errorClass);
+      },
+      submitHandler: function(form) {
+          // Nếu dữ liệu hợp lệ, hiển thị cửa sổ cảnh báo
+          //alert(form);
+          // Để form submit bình thường, chúng ta có thể sử dụng form.submit()
+          let username = $("#username").val();
+          let password = $("#password").val();
+          
+          let payload = {
+              username: username,
+              password: password
+          }
+
+          $.ajax({
+              url: "http://localhost:8080/api/auth/public/signin",
+              type: "POST",
+              data: JSON.stringify(payload),
+              contentType: "application/json",
+              success: function(response) {
+                  console.log(response);
+                  localStorage.setItem('token', response.data.token);
+                  localStorage.setItem('username', response.data.username);
+                  // let isUserRole = response.data.roles.includes('ROLE_USER');
+                  // if (isUserRole) {
+                  //     window.location.href = "./index.html";
+                  // } else {
+                  //     window.location.href = "./dashboard/html/main.html";
+                  // }
+
+                  dialogSuccess.dialog("open");
+                  setTimeout(function() {
+                      dialogSuccess.dialog("close");
+                  }, 2000);
+
+                  let token = localStorage.getItem('token');
+
+                  if (token) {
+                      // Nếu token tồn tại, thực hiện yêu cầu AJAX
+                      $.ajax({
+                          url: 'http://localhost:8080/api/user/private/get-all',
+                          type: 'GET',
+                          headers: {
+                              'Authorization': 'Bearer ' + token // Thêm token vào tiêu đề Authorization
+                          },
+                          success: function(response) {
+                              // Xử lý kết quả phản hồi từ API
+                              console.log('Dữ liệu từ API:', response);
+                          },
+                          error: function(xhr, status, error) {
+                              // Xử lý lỗi
+                              console.error('Lỗi khi gọi API:', error);
+                          }
+                      });
+                  } else {
+                      // Nếu token không tồn tại, xử lý tùy thuộc vào yêu cầu của bạn
+                      console.error('Token không tồn tại!');
+                  }
+
+              },
+              error: function(xhr, status, error) {
+                  // Xử lý lỗi
+                  $("#password-error").text("Username or password is incorrect!");
+              }
+          });
+
+      }
+      });
+  });
+</script>
 
 <div id="footer">
   <script>

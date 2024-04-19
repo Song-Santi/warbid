@@ -323,6 +323,7 @@ table tbody tr td {
   box-shadow: 5px 5px 0px #6b6b6b85;
   transition-duration: .3s;
   font-size: 14px;
+  margin: auto;
 }
 
 .edit .svg {
@@ -376,6 +377,7 @@ table tbody tr td {
   overflow: hidden;
   position: relative;
   gap: 2px;
+  margin: auto;
 }
 
 .delete .svgIcon {
@@ -422,9 +424,7 @@ a {
   font-weight: 700;
 }
 
-.head_Table .button {
 
-}
 
 /* add item */
 
@@ -443,7 +443,7 @@ a {
   border: 2px solid var(--main-color);
   box-shadow: 4px 4px var(--main-color);
   background-color: var(--bg-color);
-  border-radius: 10px;
+  border-radius: 50px;
   overflow: hidden;
 }
 
@@ -491,65 +491,98 @@ a {
   box-shadow: 0px 0px var(--main-color);
 }
 
+.flex_Wrapper {
+  display: flex;
+}
+
 /* search */
 
-.search_Wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
+.search_Wrapper .container {
   position: relative;
+  box-sizing: border-box;
+  width: fit-content;
 }
 
-.input_Search {
-  border-style: none;
-  height: 50px;
-  width: 50px;
-  padding: 10px;
-  outline: none;
-  border-radius: 50%;
-  transition: .5s ease-in-out;
-  background-color: #7e4fd4;
-  box-shadow: 0px 0px 3px #f3f3f3;
-  padding-right: 40px;
-  color: #fff;
-}
-
-.input_Search::placeholder,
-.input_Search {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-size: 17px;
-}
-
-.input_Search::placeholder {
-  color: #8f8f8f;
-}
-
-.search_Wrapper .icon {
+.search_Wrapper .mainbox {
+  box-sizing: border-box;
+  position: relative;
+  width: 230px;
+  height: 40px;
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  right: 0px;
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  outline: none;
-  border-style: none;
-  border-radius: 50%;
-  pointer-events: painted;
-  background-color: transparent;
-  transition: .2s linear;
+  border-radius: 50px;
+  /* border: 2px solid #dedede; */
+  background-color: rgb(0, 0, 0);
+  transition: all 0.3s ease;
 }
 
-.search_Wrapper .icon:focus ~ .input,
-.search_Wrapper .input_Search:focus {
-  box-shadow: none;
-  width: 250px;
-  border-radius: 0px;
+.search_Wrapper .checkbox:focus {
+  border: none;
+  outline: none;
+}
+
+.search_Wrapper .checkbox:checked {
+  right: 24px;
+}
+
+.search_Wrapper .checkbox:checked ~ .mainbox {
+  width: 50px;
+}
+
+.search_Wrapper .checkbox:checked ~ .mainbox .search_input {
+  width: 0;
+  height: 0px;
+}
+
+.search_Wrapper .checkbox:checked ~ .mainbox .iconContainer {
+  padding-right: 10px;
+}
+
+.search_Wrapper .checkbox {
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 17px;
+  top: 0px;
+  z-index: 9;
+  cursor: pointer;
+  appearance: none;
+}
+
+.search_Wrapper .search_input {
+  padding-top: 10px;
+  box-sizing: border-box;
+  height: 100%;
+  width: 170px;
   background-color: transparent;
-  border-bottom: 3px solid #7e4fd4;
-  transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
+  border: none;
+  outline: none;
+  padding-bottom: 4px;
+  padding-left: 10px;
+  font-size: 1em;
+  color: white;
+  transition: all 0.3s ease;
+  /* font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+}
+
+.search_Wrapper .search_input::placeholder {
+  color: rgba(255, 255, 255, 0.776);
+}
+
+.search_Wrapper .iconContainer {
+  box-sizing: border-box;
+  padding-top: 0px;
+  width: fit-content;
+  transition: all 0.3s ease;
+}
+
+.search_Wrapper .search_icon {
+  box-sizing: border-box;
+  fill: white;
+  font-size: 1.3em;
 }
 
 /* input add */
@@ -723,4 +756,8 @@ a {
   display: none;
 }
 
+tbody td img {
+  width: 50%;
+  margin: 2px auto 8px;
+}
 
