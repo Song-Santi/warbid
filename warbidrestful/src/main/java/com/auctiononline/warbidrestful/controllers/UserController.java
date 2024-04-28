@@ -113,7 +113,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(messageResponse);
     }
 
-    @PostMapping("/pulic/send-token")
+    @PostMapping("/public/send-token")
     public ResponseEntity<?> sendToken(@RequestBody @Valid EmailForgotRequest emailForgotRequest, BindingResult bindingResult) {
         ResponseEntity<?> invalidResponse = invalidResponse(bindingResult);
         if (invalidResponse != null) {
